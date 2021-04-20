@@ -20,6 +20,11 @@ typedef struct s_flags {
     bool S;
 }              t_flags;
 
+typedef struct s_errors {
+    bool wrong_flag;
+    bool wrong_dir;
+}              t_errors;
+
 //structure, which contains file/directory properties
 typedef struct  s_fstat {
     /*some data*/
