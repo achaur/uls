@@ -1,6 +1,25 @@
 #include <stdio.h>
 #include "libmx.h"
 
+
+typedef struct s_flags {
+    bool l; 
+    bool R; 
+    bool a; 
+    bool A; 
+    bool G; 
+    bool h;
+    bool atsign;//@
+    bool e;
+    bool T;
+    bool one;//1
+    bool r;
+    bool t;
+    bool u;
+    bool c;
+    bool S;
+}              t_flags;
+
 //structure, which contains file/directory properties
 typedef struct  s_fstat {
     /*some data*/
