@@ -1,6 +1,20 @@
-#include <stdio.h>
 #include "libmx.h"
 
+#include <stdio.h>
+#include <time.h>
+#include <sys/types.h>
+#include <dirent.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
+#include <sys/acl.h>
+#include <sys/xattr.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
+#include <grp.h>
+#include <pwd.h>
+#include <sys/errno.h>
 
 //structure, which contains file/directory properties
 typedef struct  s_fstat {
@@ -18,3 +32,6 @@ typedef struct  s_node {
     struct s_node *level;
     struct s_node *next;
 }               t_node;
+
+void mx_one_flag(int argc, char **argv);
+

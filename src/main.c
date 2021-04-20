@@ -1,8 +1,9 @@
 #include "uls.h"
 
-int main(void) {
+int main(int argc, char **argv) {
 
-    printf("Hello uls!\n");
+    if (argc == 1) 
+        mx_one_flag(argc, argv);
 
     return 0;
 }
