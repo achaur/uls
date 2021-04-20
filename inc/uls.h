@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "libmx.h"
 
+
 //structure, which contains file/directory properties
 typedef struct  s_fstat {
     /*some data*/
