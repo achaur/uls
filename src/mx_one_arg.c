@@ -11,7 +11,7 @@ static char my_bubble_sort(char **arr, int size) {
     return (char) arr;
 }
 
-void mx_one_flag(int argc, char *argv[]) {
+void mx_one_arg(int argc, char *argv[]) {
     struct stat st;
     DIR* pDir = opendir(".");
     struct dirent* pCurDir;
