@@ -34,7 +34,7 @@
 #define DIR_X "\033[0;30;43m"
 
 typedef struct s_uls {
-    char *flags;
+    // char *flags;
     int size;
     char *name;
     int flags_num;
@@ -42,6 +42,24 @@ typedef struct s_uls {
     int files_num;
     int argcf;
 }              t_uls;
+
+typedef struct s_flags {
+    bool r;/*SORTING FLAGS TO IMPLEMENT*/
+    bool S;
+    bool t;
+    bool u;
+    bool c;
+    bool U;
+    bool l;/*PRINT FLAGS TO IMPLEMENT*/
+    bool a;
+    bool A;
+    bool G;
+    bool h;
+    bool i;
+    bool n;
+    bool p;
+    bool one;
+}              t_flags;
 
 //structure, which contains file/directory properties
 // typedef struct s_fstat {
@@ -68,10 +86,14 @@ typedef struct  s_arg {
 void mx_one_arg(int argc, char **argv);
 
 //parsing
-void mx_get_flags(int argc, char **argv, t_uls *data);
-void mx_get_files_names(int argc, char **argv, t_uls *data);
+void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags);
+
+// void mx_get_flags(int argc, char **argv, t_uls *data, t_flags *flags);
+// void mx_get_files_names(int argc, char **argv, t_uls *data);
 
 //errors
 void mx_invalid_flag(char c);
 void mx_printerr(const char *s);
 void mx_invalid_file (char *argv);
+
+// void mx_flags_init(t_flags *flags);
