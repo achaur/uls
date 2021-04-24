@@ -78,6 +78,13 @@ typedef struct  s_file {
     struct s_file *next;        //pointer to next level in this directory
 }               t_file;
 
+//structure which holds table to print
+typedef struct  s_table {
+    int rows;                   //number of rows in table
+    int cols;                   //number of columns in table
+    int *max_col_size;          //array which holds max col width (for true intendation)
+    char ***table;              //2-D array of strings (data to print)
+}               t_table;
 
 void mx_one_arg(int argc, char **argv);
 
@@ -95,5 +102,11 @@ char *mx_get_fullpath(const char *path, const char *file);
 void mx_invalid_flag(char c);
 void mx_printerr(const char *s);
 void mx_invalid_file (char *argv);
+
+/*--- Print ---*/
+//how much spaces between columns
+#define TAB_SIZE    2
+void mx_print_table(t_table *table);
+t_table *mx_allocate_table(int rows, int cols);
 
 #endif
