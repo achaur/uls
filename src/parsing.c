@@ -73,7 +73,8 @@ t_file *mx_scan_dir(char *path) {
 
     if (!dir) {
         perror("directory not opened\n");
-        exit(1);
+        // exit(1);
+        return NULL;
     } else
         printf("directory opened\n");
 
