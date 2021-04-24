@@ -38,6 +38,10 @@ bool mx_is_root(const char *dir);
 char *mx_get_fullpath(const char *path, const char *file);
 
 /*--- Print ---*/
+//how much spaces between columns
+#define TAB_SIZE    2
+
 void mx_print_table(t_table *table);
+t_table *mx_allocate_table(int rows, int cols);
 
 #endif

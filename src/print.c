@@ -16,16 +16,54 @@
 /*--- TO-DO:
     - function which prints table to terminal                   +
     - function which fill data into table (according to flags)
-    - function which calculates space intendation
+    - function which calculates space intendation               +
     - function which allocates table                            +
+    - function to fill max_col_width                            +
 --------------------------*/
 
-void mx_print_table(t_table *table) {
+//prints needed amount of whitespaces for pretty output
+void print_tab(int max_size, char *str) {
+    int spaces = max_size - mx_strlen(str) + TAB_SIZE;
+
+    while (spaces-- > 0)
+        mx_printchar(' ');
+}
+
+//calculates max column width for every column in the table
+void get_max_width(t_table *table) {
     for (int col = 0; col < table->cols; col++) {
+        table->max_col_size[col] = 0;
         for (int row = 0; row < table->rows; row++) {
+            int len = mx_strlen(table->table[row][col]);
+            if (len > table->max_col_size[col])
+                table->max_col_size[col] = len;
+        }
+    }
+}
+
+//allocates string table of given size
+t_table *mx_allocate_table(int rows, int cols) {
+    t_table *table = malloc(sizeof(t_table));
+
+    table->rows = rows;
+    table->cols = cols;
+        //allocate max_col_size arrat
+    table->max_col_size = malloc((cols - 1) * sizeof(int));
+        //allocate 2-D string array
+    table->table = malloc(table->rows * sizeof(char**));
+    for (int i = 0; i < table->rows; i++) {
+        table->table[i] = malloc(table->cols * sizeof(char*));
+    }
+    return table;
+}
+
+//prints table
+void mx_print_table(t_table *table) {
+    get_max_width(table);
+    for (int row = 0; row < table->rows; row++) {
+        for (int col = 0; col < table->cols; col++) {
             mx_printstr(table->table[row][col]);
-            //add space here
-            mx_printstr("  ");
+            print_tab(table->max_col_size[col], table->table[row][col]);
         }
     mx_printchar('\n');
     }
