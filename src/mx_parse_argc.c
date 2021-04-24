@@ -1,6 +1,6 @@
 #include "uls.h"
 
-static void mx_flags_init(t_flags *flags) {
+static void flags_init(t_flags *flags) {
     flags->r = false;
     flags->S = false;
     flags->t = false;
@@ -18,7 +18,7 @@ static void mx_flags_init(t_flags *flags) {
     flags->one = false;
 }
 
-static void mx_flags_def(t_flags *flags, char *str) {
+static void flags_get(t_flags *flags, char *str) {
     for (int i = 1; str[i] != '\0'; i++) {
         printf("Flag: %c\n", str[i]);
         switch (str[i]) {
@@ -75,24 +75,7 @@ static void mx_flags_def(t_flags *flags, char *str) {
     
 }
 
-static void mx_get_flags(int argc, char **argv, t_uls *data, t_flags *flags) {
-    int k = 0;
-    int count = 0;
-
-    for (int i = 1; i < argc; i++) {
-        if (argv[i][0] == '-' && argv[i][1] != '\0') {
-            mx_flags_def(flags, argv[i]);
-        }
-    }
-    data->flags_num = count;
-}
-
-static bool mx_check_file(char *argv) {
-    struct stat buffer;
-    return (stat (argv, &buffer) == 0);
-}
-
-static void mx_get_files_names(int argc, char **argv, t_uls *data, int pos) {
+static void get_files_names(int argc, char **argv, t_uls *data, int pos) {
     data->files_num = argc - 1 - data->argcf;
     data->files = (char **)malloc(sizeof(char *) * (data->files_num + 1));
     int k = 0;
@@ -105,13 +88,13 @@ static void mx_get_files_names(int argc, char **argv, t_uls *data, int pos) {
 }
 
 void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
-    mx_flags_init(flags);
+    flags_init(flags);
     bool tmp = false;
     data->argcf = 0; 
-    int i = 1;
-    for (; i < argc; i++) {
-        if (argv[i][0] == '-' && tmp == false) {
-            mx_flags_def(flags, argv[i]);
+    int arg_so_far = 1;
+    for (; arg_so_far < argc; arg_so_far++) {
+        if (argv[arg_so_far][0] == '-' && tmp == false) {
+            flags_get(flags, argv[arg_so_far]);
             data->argcf++;
         }    
         else {
@@ -119,6 +102,5 @@ void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
             break;
         }
     }
-    // printf("i = %d\n", i);
-    mx_get_files_names(argc, argv, data, i);
+    get_files_names(argc, argv, data, arg_so_far);
 }

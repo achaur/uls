@@ -61,39 +61,13 @@ typedef struct s_flags {
     bool one;
 }              t_flags;
 
-//structure, which contains file/directory properties
-// typedef struct s_fstat {
-//     int size;
-//     char *name;
-//     char *flags;
-// }              t_fstat;
-
-// element of linked-list tree
-typedef struct  s_node {
-    t_uls *fstat;
-    struct s_node *level;
-    //pointer to next recursive level
-    //if node element is a directory, points to next level linked list
-    //if node element is a file, points to NULL
-    struct s_node *next;
-}               t_node;
-
-typedef struct  s_arg {
-    t_node *node;
-    struct s_arg *next;
-}               t_arg;
 
 void mx_one_arg(int argc, char **argv);
 
-//parsing
+    /*--- Parsing ---*/
 void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags);
 
-// void mx_get_flags(int argc, char **argv, t_uls *data, t_flags *flags);
-// void mx_get_files_names(int argc, char **argv, t_uls *data);
-
-//errors
+    /*--- Errors ---*/
 void mx_invalid_flag(char c);
 void mx_printerr(const char *s);
 void mx_invalid_file (char *argv);
-
-// void mx_flags_init(t_flags *flags);
