@@ -8,7 +8,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <sys/xattr.h>
-#include <sys/acl.h>
+// #include <sys/acl.h>
 #include <sys/ioctl.h>
 #include <time.h>
 #include <string.h>
@@ -34,7 +34,7 @@
 #define DIR_X "\033[0;30;43m"
 
 typedef struct s_uls {
-    char *flags;
+    // char *flags;
     int size;
     char *name;
     int flags_num;
@@ -43,13 +43,57 @@ typedef struct s_uls {
     int argcf;
 }              t_uls;
 
+typedef struct s_flags {
+    bool r;/*SORTING FLAGS TO IMPLEMENT*/
+    bool S;
+    bool t;
+    bool u;
+    bool c;
+    bool U;
+    bool l;/*PRINT FLAGS TO IMPLEMENT*/
+    bool a;
+    bool A;
+    bool G;
+    bool h;
+    bool i;
+    bool n;
+    bool p;
+    bool one;
+}              t_flags;
+
+//structure, which contains file/directory properties
+// typedef struct s_fstat {
+//     int size;
+//     char *name;
+//     char *flags;
+// }              t_fstat;
+
+// element of linked-list tree
+typedef struct  s_node {
+    t_uls *fstat;
+    struct s_node *level;
+    //pointer to next recursive level
+    //if node element is a directory, points to next level linked list
+    //if node element is a file, points to NULL
+    struct s_node *next;
+}               t_node;
+
+typedef struct  s_arg {
+    t_node *node;
+    struct s_arg *next;
+}               t_arg;
+
 void mx_one_arg(int argc, char **argv);
 
 //parsing
-void mx_get_flags(int argc, char **argv, t_uls *data);
-void mx_get_files_names(int argc, char **argv, t_uls *data);
+void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags);
+
+// void mx_get_flags(int argc, char **argv, t_uls *data, t_flags *flags);
+// void mx_get_files_names(int argc, char **argv, t_uls *data);
 
 //errors
 void mx_invalid_flag(char c);
 void mx_printerr(const char *s);
 void mx_invalid_file (char *argv);
+
+// void mx_flags_init(t_flags *flags);
