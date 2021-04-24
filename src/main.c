@@ -12,31 +12,37 @@ int main(int argc, char **argv) {
 
             //print out file arguments
     printf("\tArguments:\n");
-    for (int i = 0; i < data->files_num; i++)
+    for (int i = 0; data->files[i] != NULL; i++)
         printf("%s\n", data->files[i]);
 
-        //scan directories recursively
-    char *path = mx_strdup(argv[1]);
-    t_file *fist = NULL;
-    fist = mx_scan_dir(path);
+        //read file tree
+    t_file *tree = mx_get_tree(data->files);
+
+    // //test what is it tree struct
+    tree = tree->level;
+    while (tree != NULL) {
+        printf("Node name: %s\n", tree->name);
+        printf("Node path: %s\n\n", tree->path);
+        tree = tree->next;
+    }
 
     /*---DEMO PRINT ---*/
 
-    //try to fill and print table
-    t_table *table = mx_allocate_table(3,3);
+    // //try to fill and print table
+    // t_table *table = mx_allocate_table(3,3);
 
-    //fill 2-D string array table[row][col]
-    table->table[0][0] = mx_strdup("a");
-    table->table[1][0] = mx_strdup("b");
-    table->table[2][0] = mx_strdup("c");
-    table->table[0][1] = mx_strdup("qwertysdvsdv");
-    table->table[1][1] = mx_strdup("asdfg");
-    table->table[2][1] = mx_strdup("zxcvb");
-    table->table[0][2] = mx_strdup("tyu");
-    table->table[1][2] = mx_strdup("ghj");
-    table->table[2][2] = mx_strdup("bnm");
+    // //fill 2-D string array table[row][col]
+    // table->table[0][0] = mx_strdup("a");
+    // table->table[1][0] = mx_strdup("b");
+    // table->table[2][0] = mx_strdup("c");
+    // table->table[0][1] = mx_strdup("qwertysdvsdv");
+    // table->table[1][1] = mx_strdup("asdfg");
+    // table->table[2][1] = mx_strdup("zxcvb");
+    // table->table[0][2] = mx_strdup("tyu");
+    // table->table[1][2] = mx_strdup("ghj");
+    // table->table[2][2] = mx_strdup("bnm");
 
-    mx_print_table(table);
+    // mx_print_table(table);
 
     return 0;
 }

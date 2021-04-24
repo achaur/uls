@@ -92,11 +92,11 @@ void mx_one_arg(int argc, char **argv);
 void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags);
 
     /*--- Parsing file/dir tree---*/
-t_file *mx_scan_dir(char *path);
+t_file *mx_get_tree(char **files);
 
     /*--- Utils ---*/
 bool mx_is_root(const char *dir);
-char *mx_get_fullpath(const char *path, const char *file);
+char *mx_get_fullpath(const char *name, const char *path);
 
     /*--- Errors ---*/
 void mx_invalid_flag(char c);
