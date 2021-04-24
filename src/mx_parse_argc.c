@@ -82,7 +82,6 @@ static void get_files_names(int argc, char **argv, t_uls *data, int pos) {
     int count = 0;
 
     for (int i = pos; i < argc; i++) {
-            // printf("arg: %s\n", argv[i]);
             data->files[k++] = mx_strdup(argv[i]);
     }
 }
@@ -92,6 +91,7 @@ void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
     bool tmp = false;
     data->argcf = 0; 
     int arg_so_far = 1;
+
     for (; arg_so_far < argc; arg_so_far++) {
         if (argv[arg_so_far][0] == '-' && tmp == false) {
             flags_get(flags, argv[arg_so_far]);

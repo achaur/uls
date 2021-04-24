@@ -110,3 +110,10 @@ void mx_print_table(t_table *table);
 t_table *mx_allocate_table(int rows, int cols);
 
 #endif
+
+char *mx_get_user_rights(t_file *file, t_flags *flags);
+// void mx(t_file *file, t_flags *flags) [
+//     if(flags->l) {
+
+//     }
+// ]

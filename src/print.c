@@ -11,14 +11,20 @@
 * -n : same as -l, but print group and user IDs instead of names
 * -p : append / symbol to directories
 * -1 : one file per file
+* -F : Display a slash (`/') immediately after each pathname that is a directory, an asterisk (`*') after each that is executable, an at sign (`@') after each symbolic link,
+             an equals sign (`=') after each socket, a percent sign (`%') after each whiteout, and a vertical bar (`|') after each that is a FIFO.
 -----------------------------*/
 
 /*--- TO-DO:
-    - function which prints table to terminal                   +
-    - function which fill data into table (according to flags)
-    - function which calculates space intendation               +
-    - function which allocates table                            +
-    - function to fill max_col_width                            +
+    - get index number
+    - get user rights
+    - get number of links
+    - get username (read -n flag)
+    - get usersid (read -n flag)
+    - size (read -h flag)
+    - get date
+    - get name (read -F flag)
+
 --------------------------*/
 
 //prints needed amount of whitespaces for pretty output
@@ -68,3 +74,5 @@ void mx_print_table(t_table *table) {
     mx_printchar('\n');
     }
 }
+
+
