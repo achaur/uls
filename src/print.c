@@ -1,3 +1,5 @@
+#include "uls.h"
+
 /*--- PRINT FLAGS TO IMPLEMENT ---
 * -l : Print with long listing
 * -a : print all hidden files (starts with .)
@@ -11,3 +13,20 @@
 * -1 : one file per file
 -----------------------------*/
 
+/*--- TO-DO:
+    - function which prints table to terminal                   +
+    - function which fill data into table (according to flags)
+    - function which calculates space intendation
+    - function which allocates table                            +
+--------------------------*/
+
+void mx_print_table(t_table *table) {
+    for (int col = 0; col < table->cols; col++) {
+        for (int row = 0; row < table->rows; row++) {
+            mx_printstr(table->table[row][col]);
+            //add space here
+            mx_printstr("  ");
+        }
+    mx_printchar('\n');
+    }
+}

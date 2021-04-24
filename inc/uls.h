@@ -22,6 +22,13 @@ typedef struct  s_file {
     struct s_file *next;        //pointer to next level in this directory
 }               t_file;
 
+//structure which holds table to print
+typedef struct  s_table {
+    int rows;                   //number of rows in table
+    int cols;                   //number of columns in table
+    int *max_col_size;          //array which holds max col width (for true intendation)
+    char ***table;              //2-D array of strings (data to print)
+}               t_table;
 
 /*--- Parsing ---*/
 t_file *mx_scan_dir(char *path);
@@ -29,5 +36,8 @@ t_file *mx_scan_dir(char *path);
 /*--- Utils ---*/
 bool mx_is_root(const char *dir);
 char *mx_get_fullpath(const char *path, const char *file);
+
+/*--- Print ---*/
+void mx_print_table(t_table *table);
 
 #endif
