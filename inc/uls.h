@@ -43,28 +43,6 @@ typedef struct s_uls {
     int argcf;
 }              t_uls;
 
-//structure, which contains file/directory properties
-// typedef struct s_fstat {
-//     int size;
-//     char *name;
-//     char *flags;
-// }              t_fstat;
-
-// element of linked-list tree
-typedef struct  s_node {
-    t_uls *fstat;
-    struct s_node *level;
-    //pointer to next recursive level
-    //if node element is a directory, points to next level linked list
-    //if node element is a file, points to NULL
-    struct s_node *next;
-}               t_node;
-
-typedef struct  s_arg {
-    t_node *node;
-    struct s_arg *next;
-}               t_arg;
-
 void mx_one_arg(int argc, char **argv);
 
 //parsing
