@@ -1,20 +1,24 @@
 #include "uls.h"
 
 int main(int argc, char **argv) {
+    printf("Hello uls!\n");
+
+        //allocate struct for data and flags
     t_uls *data = (t_uls *)malloc(sizeof(t_uls));
     t_flags *flags = (t_flags *)malloc(sizeof(t_flags));
 
+        //parse arguments
     mx_parse_argc(argc, argv, data, flags);
-    // mx_flags_init(flags);
-    // if (argc == 1) 
-    //     mx_one_arg(argc, argv);
-    // else {
-    //     mx_get_flags(argc, argv, data, flags);
-    //     mx_get_files_names(argc, argv, data);
-    // }   
 
-    for (int i = 0; i < data->files_num; i++) {
+            //print out file arguments
+    printf("\tArguments:\n");
+    for (int i = 0; i < data->files_num; i++)
         printf("%s\n", data->files[i]);
-    }
+
+        //scan directories recursively
+    char *path = mx_strdup(argv[1]);
+    t_file *fist = NULL;
+    fist = mx_scan_dir(path);
+
     return 0;
 }

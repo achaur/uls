@@ -1,21 +1,28 @@
-#pragma once
+#ifndef _ULS_H
+#define _ULS_H
 
 #include "libmx.h"
+
+#include <stdio.h>
+#include <string.h>
+
+//for stat
+#include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/errno.h>
+
+//for dir functions
 #include <dirent.h>
+
+#include <sys/errno.h>
 #include <pwd.h>
 #include <grp.h>
 #include <sys/xattr.h>
 // #include <sys/acl.h>
 #include <sys/ioctl.h>
 #include <time.h>
-#include <string.h>
 #include <ctype.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
+
 
 #define _XOPEN_SOURCE
 #define FLAGS     "@1AaCcFfGhlmpRrSTtu\0"
@@ -33,8 +40,8 @@
 #define DIR_T "\x1B[0;30;42m"
 #define DIR_X "\033[0;30;43m"
 
+
 typedef struct s_uls {
-    // char *flags;
     int size;
     char *name;
     int flags_num;
@@ -43,6 +50,7 @@ typedef struct s_uls {
     int argcf;
 }              t_uls;
 
+//structure which holds uls flags
 typedef struct s_flags {
     bool r;/*SORTING FLAGS TO IMPLEMENT*/
     bool S;
@@ -61,13 +69,31 @@ typedef struct s_flags {
     bool one;
 }              t_flags;
 
+//structure which holds file tree
+typedef struct  s_file {
+    struct stat filestat;       //standard struct to hold file data
+    char *name;                 //file name
+    char *path;                 //path to file
+    struct s_file *level;       //pointer to next level (sub-directory)
+    struct s_file *next;        //pointer to next level in this directory
+}               t_file;
+
 
 void mx_one_arg(int argc, char **argv);
 
-    /*--- Parsing ---*/
+    /*--- Parsing arguments---*/
 void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags);
+
+    /*--- Parsing file/dir tree---*/
+t_file *mx_scan_dir(char *path);
+
+    /*--- Utils ---*/
+bool mx_is_root(const char *dir);
+char *mx_get_fullpath(const char *path, const char *file);
 
     /*--- Errors ---*/
 void mx_invalid_flag(char c);
 void mx_printerr(const char *s);
 void mx_invalid_file (char *argv);
+
+#endif
