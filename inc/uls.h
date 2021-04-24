@@ -111,7 +111,9 @@ t_table *mx_allocate_table(int rows, int cols);
 
 #endif
 
+unsigned short mx_get_links_num(t_file *file, t_flags *flags);
 char *mx_get_user_rights(t_file *file, t_flags *flags);
+int mx_get_user_id(t_file *file, t_flags *flags);
 // void mx(t_file *file, t_flags *flags) [
 //     if(flags->l) {
 

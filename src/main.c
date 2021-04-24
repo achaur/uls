@@ -37,6 +37,7 @@ int main(int argc, char **argv) {
     // table->table[2][2] = mx_strdup("bnm");
 
     // mx_print_table(table);
-    mx_get_user_rights(file, flags);
+    // mx_get_user_id(file, flags);
+    // mx_get_user_rights(file, flags);
     return 0;
 }
