@@ -52,7 +52,7 @@ typedef struct s_uls {
 
 //structure which holds uls flags
 typedef struct s_flags {
-    bool r;/*SORTING FLAGS TO IMPLEMENT*/
+    bool R;/*SORTING FLAGS TO IMPLEMENT*/
     bool S;
     bool t;
     bool u;
@@ -92,7 +92,7 @@ void mx_one_arg(int argc, char **argv);
 void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags);
 
     /*--- Parsing file/dir tree---*/
-t_file *mx_get_tree(char **files);
+t_file *mx_get_tree(char **files, t_flags *flags);
 
     /*--- Utils ---*/
 bool mx_is_root(const char *dir);

@@ -1,7 +1,7 @@
 #include "uls.h"
 
 static void flags_init(t_flags *flags) {
-    flags->r = false;
+    flags->R = false;
     flags->S = false;
     flags->t = false;
     flags->u = false;
@@ -22,8 +22,8 @@ static void flags_get(t_flags *flags, char *str) {
     for (int i = 1; str[i] != '\0'; i++) {
         printf("Flag: %c\n", str[i]);
         switch (str[i]) {
-            case 'r':
-                flags->r = true;
+            case 'R':
+                flags->R = true;
                 break;
             case 'S':
                 flags->S = true;

@@ -1,12 +1,12 @@
 #include "uls.h"
 
 //prototype for recursive use
-static t_file *scan_dir(char *path);
+static t_file *scan_dir(char *path, t_flags *flags);
 
 //create new node filled with data
 //if called with first = 1, then read '.' and '..'
 //for next calls, first = 0 and those dirs don't go recursive
-static t_file *file_create_node(char *name, char *path, bool first) {
+static t_file *file_create_node(char *name, char *path, bool first, t_flags *flags) {
     t_file *node = (t_file*)malloc(sizeof(t_file));
 
         //get fullpath to file/directory
@@ -24,31 +24,39 @@ static t_file *file_create_node(char *name, char *path, bool first) {
         //fill data stucture with name and path
     node->name = mx_strdup(name);
     node->path = mx_strdup(path);
-        //if directory, call recursive
+
+
     if(S_ISDIR(node->filestat.st_mode)) {
         if (first) {
+                //if this is the first call of scandir, dont check for root directory
             printf("%s is a directory\n", node->name);
             printf("\tGoing next level..\n");
-            node->level = scan_dir(fullpath);
-        } else if(!mx_is_root(node->name)) {
-            printf("%s is a directory\n", node->name);
-            printf("\tGoing next level..\n");
-            node->level = scan_dir(fullpath);
+            node->level = scan_dir(fullpath, flags);
+        } else if (flags->R) {
+                //if not first call, check for recursion available
+            if(!mx_is_root(node->name)) {
+                printf("%s is a directory\n", node->name);
+                printf("\tGoing next level..\n");
+                node->level = scan_dir(fullpath, flags);
+            }
+        } else {
+                //no next level
+            node->level = NULL;
         }
     } else {
+            //no next level
         node->level = NULL;
     }
     node->next = NULL;
-
     //free memory
     mx_strdel(&fullpath);
     return node;
 }
 
 //push back data to file list
-static void file_push_back(t_file **file, char *name, char *path, bool first) {
+static void file_push_back(t_file **file, char *name, char *path, bool first, t_flags *flags) {
     if (*file == NULL) {
-        *file = file_create_node(name, path, first);
+        *file = file_create_node(name, path, first, flags);
     return;
     }
         //find end of list
@@ -56,7 +64,7 @@ static void file_push_back(t_file **file, char *name, char *path, bool first) {
     while(current->next != NULL)
         current = current->next;
         //fill data for next node
-    current->next = file_create_node(name, path, first);
+    current->next = file_create_node(name, path, first, flags);
 }
 
 /*----- TO-DO:
@@ -64,7 +72,7 @@ static void file_push_back(t_file **file, char *name, char *path, bool first) {
 ------------*/
 
 //scan directory contents and fill data tree
-static t_file *scan_dir(char *path) {
+static t_file *scan_dir(char *path, t_flags *flags) {
     t_file *filelist = NULL;
     DIR *dir;
     struct dirent *entry;
@@ -83,7 +91,7 @@ static t_file *scan_dir(char *path) {
     //read directory contents
     while ((entry = readdir(dir)) != NULL) {
         printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
-        file_push_back(&filelist, entry->d_name, path, 0);
+        file_push_back(&filelist, entry->d_name, path, 0, flags);
     }
 
     closedir(dir);
@@ -101,14 +109,16 @@ static t_file *scan_dir(char *path) {
     return filelist;
 }
 
-t_file *mx_get_tree(char **files) {
+//push back NULL shows that this is very first level
+//of files data tree
+t_file *mx_get_tree(char **files, t_flags *flags) {
     t_file *filelist = NULL;
         //if no arguments, use default one
     if (*files == NULL) {
-        file_push_back(&filelist, ".", NULL, 1);
+        file_push_back(&filelist, ".", NULL, 1, flags);
     } else
         for (int file = 0; files[file] != NULL; file++)
-            file_push_back(&filelist, files[file], NULL, 1);
+            file_push_back(&filelist, files[file], NULL, 1, flags);
 
     return filelist;
 }

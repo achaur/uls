@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
         printf("%s\n", data->files[i]);
 
         //read file tree
-    t_file *tree = mx_get_tree(data->files);
+    t_file *tree = mx_get_tree(data->files, flags);
 
     // //test what is it tree struct
     tree = tree->level;
