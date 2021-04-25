@@ -1,0 +1,93 @@
+Hello uls!
+Flag: a
+	Arguments:
+Fullpath: .
+Stat for . returned 0
+. is a directory
+	Going next level..
+Opening directory: .
+Counter: 0, Filename: libmx
+Fullpath: ./libmx
+Stat for libmx returned 0
+Counter: 1, Filename: ..
+Fullpath: ./..
+Stat for .. returned 0
+Counter: 2, Filename: .
+Fullpath: ./.
+Stat for . returned 0
+Counter: 3, Filename: .git
+Fullpath: ./.git
+Stat for .git returned 0
+Counter: 4, Filename: obj
+Fullpath: ./obj
+Stat for obj returned 0
+Counter: 5, Filename: inc
+Fullpath: ./inc
+Stat for inc returned 0
+Counter: 6, Filename: flag.txt
+Fullpath: ./flag.txt
+Stat for flag.txt returned 0
+Counter: 7, Filename: uls
+Fullpath: ./uls
+Stat for uls returned 0
+Counter: 8, Filename: .gitignore
+Fullpath: ./.gitignore
+Stat for .gitignore returned 0
+Counter: 9, Filename: src
+Fullpath: ./src
+Stat for src returned 0
+Counter: 10, Filename: Makefile
+Fullpath: ./Makefile
+Stat for Makefile returned 0
+Counter: 11, Filename: README.md
+Fullpath: ./README.md
+Stat for README.md returned 0
+	Closing directory .
+Node name: libmx
+Node path: .
+Node level: (nil)
+
+Node name: ..
+Node path: .
+Node level: (nil)
+
+Node name: .
+Node path: .
+Node level: (nil)
+
+Node name: .git
+Node path: .
+Node level: (nil)
+
+Node name: obj
+Node path: .
+Node level: (nil)
+
+Node name: inc
+Node path: .
+Node level: (nil)
+
+Node name: flag.txt
+Node path: .
+Node level: (nil)
+
+Node name: uls
+Node path: .
+Node level: (nil)
+
+Node name: .gitignore
+Node path: .
+Node level: (nil)
+
+Node name: src
+Node path: .
+Node level: (nil)
+
+Node name: Makefile
+Node path: .
+Node level: (nil)
+
+Node name: README.md
+Node path: .
+Node level: (nil)
+

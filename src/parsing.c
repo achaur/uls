@@ -25,7 +25,6 @@ static t_file *file_create_node(char *name, char *path, bool first, t_flags *fla
     node->name = mx_strdup(name);
     node->path = mx_strdup(path);
 
-
     if(S_ISDIR(node->filestat.st_mode)) {
         if (first) {
                 //if this is the first call of scandir, dont check for root directory
@@ -67,10 +66,6 @@ static void file_push_back(t_file **file, char *name, char *path, bool first, t_
     current->next = file_create_node(name, path, first, flags);
 }
 
-/*----- TO-DO:
-        CHECK FOR -R FLAG, IF NOT SET, DON'T GO RECURSIVE
-------------*/
-
 //scan directory contents and fill data tree
 static t_file *scan_dir(char *path, t_flags *flags) {
     t_file *filelist = NULL;
@@ -90,8 +85,20 @@ static t_file *scan_dir(char *path, t_flags *flags) {
 
     //read directory contents
     while ((entry = readdir(dir)) != NULL) {
-        printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
-        file_push_back(&filelist, entry->d_name, path, 0, flags);
+        if (mx_is_root(entry->d_name)) {
+            if (flags->a) {
+                printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
+                file_push_back(&filelist, entry->d_name, path, 0, flags);
+            }
+        } else if (mx_is_hidden(entry->d_name)) {
+            if (flags->a || flags->A) {
+                printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
+                file_push_back(&filelist, entry->d_name, path, 0, flags);
+            }
+        } else {
+            printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
+            file_push_back(&filelist, entry->d_name, path, 0, flags);
+        }
     }
 
     closedir(dir);

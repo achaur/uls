@@ -97,6 +97,7 @@ t_file *mx_get_tree(char **files, t_flags *flags);
     /*--- Utils ---*/
 bool mx_is_root(const char *dir);
 char *mx_get_fullpath(const char *name, const char *path);
+bool mx_is_hidden(const char *dir);
 
     /*--- Errors ---*/
 void mx_invalid_flag(char c);

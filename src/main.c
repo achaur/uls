@@ -18,11 +18,12 @@ int main(int argc, char **argv) {
         //read file tree
     t_file *tree = mx_get_tree(data->files, flags);
 
-    // //test what is it tree struct
+    //test what is it tree struct
     tree = tree->level;
     while (tree != NULL) {
         printf("Node name: %s\n", tree->name);
-        printf("Node path: %s\n\n", tree->path);
+        printf("Node path: %s\n", tree->path);
+        printf("Node level: %p\n\n", tree->level);
         tree = tree->next;
     }
 
