@@ -39,5 +39,8 @@ int main(int argc, char **argv) {
     // mx_print_table(table);
     // mx_get_user_id(file, flags);
     // mx_get_user_rights(file, flags);
+    for (int i = 0; i < data->files_num; i++) {
+        printf("%s\n", data->files[i]);
+    }
     return 0;
 }

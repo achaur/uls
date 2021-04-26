@@ -48,6 +48,7 @@ typedef struct s_uls {
     char **files;
     int files_num;
     int argcf;
+    int *indexes_of_files;
 }              t_uls;
 
 //structure which holds uls flags
