@@ -23,6 +23,30 @@
 #include <time.h>
 #include <ctype.h>
 
+#define MX_IFMT   0170000  /* type of file mask */
+#define MX_IFIFO  0010000  /* named pipe (fifo) */
+#define MX_IFCHR  0020000  /* character special */
+#define MX_IFDIR  0040000  /* directory */
+#define MX_IFBLK  0060000  /* block special */
+#define MX_IFREG  0100000  /* regular */
+#define MX_IFLNK  0120000  /* symbolic link */
+#define MX_IFSOCK 0140000  /* socket */
+#define MX_IFWHT  0160000  /* whiteout */
+#define MX_ISUID  0004000  /* set user id on execution */
+#define MX_ISGID  0002000  /* set group id on execution */
+#define MX_ISVTX  0001000  /* save swapped text even after use */
+#define MX_IRWXU  0000700  /* RWX mask for owner */
+#define MX_IRUSR  0000400        /* R ead permission, owner */
+#define MX_IWUSR  0000200        /* W rite permission, owner */
+#define MX_IXUSR  0000100        /* X execute/search permission, owner */
+#define MX_IRWXG  0000070  /* RWX mask for group */
+#define MX_IRGRP  0000040        /* R ead permission, group */
+#define MX_IWGRP  0000020        /* W rite permission, group */
+#define MX_IXGRP  0000010        /* X execute/search permission, group */
+#define MX_IRWXO  0000007  /* RWX mask for other */
+#define MX_IROTH  0000004        /* R ead permission, other */
+#define MX_IWOTH  0000002        /* W rite permission, other */
+#define MX_IXOTH  0000001        /* X execute/search permission, other */
 
 #define _XOPEN_SOURCE
 #define FLAGS     "@1AaCcFfGhlmpRrSTtu\0"
@@ -39,7 +63,6 @@
 #define CHR "\x1B[0;34;43m"
 #define DIR_T "\x1B[0;30;42m"
 #define DIR_X "\033[0;30;43m"
-
 
 typedef struct s_uls {
     int size;
@@ -73,6 +96,8 @@ typedef struct s_flags {
 //structure which holds file tree
 typedef struct  s_file {
     struct stat filestat;       //standard struct to hold file data
+    struct passwd *pwd;         //standard struct to hold user account information
+    struct group *grp;          //standard struct to hold group information
     char *name;                 //file name
     char *path;                 //path to file
     struct s_file *level;       //pointer to next level (sub-directory)
@@ -112,11 +137,6 @@ t_table *mx_allocate_table(int rows, int cols);
 
 #endif
 
-unsigned short mx_get_links_num(t_file *file, t_flags *flags);
+char *mx_get_links_num(char *file_name);
 char *mx_get_user_rights(t_file *file, t_flags *flags);
 int mx_get_user_id(t_file *file, t_flags *flags);
-// void mx(t_file *file, t_flags *flags) [
-//     if(flags->l) {
-
-//     }
-// ]
