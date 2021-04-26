@@ -22,13 +22,13 @@ int main(int argc, char **argv) {
     // int res = mx_get_filesnum(tree);
 
     // printf("Number of files: %d\n", res);
-    // mx_get_cols(tree);
-    // int total = 11, cols = 3;
-    // int rows = mx_get_rows(cols, total);
+ 
 
-    // printf("Total files: %d, rows: %d, cols: %d\n", total, rows, cols);
 
     printf("================\n");
+    // int total = 1, rows = 1;
+    // int cols = mx_get_opposite(rows, total);
+    // printf("Total files: %d, rows: %d, cols: %d\n", total, rows, cols);
 
     int cols = mx_get_cols(tree);
 

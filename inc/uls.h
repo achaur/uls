@@ -112,7 +112,7 @@ t_table *mx_allocate_table(int rows, int cols);
 
 int mx_get_filesnum(t_file *dir);
 int mx_get_cols(t_file *dir);
-int mx_get_rows(int cols, int filesnum);
+int mx_get_opposite(int cols, int filesnum);
 
 
 #endif

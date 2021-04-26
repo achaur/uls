@@ -14,7 +14,8 @@ int mx_get_filesnum(t_file *dir) {
 }
 
 //calculates number of rows based of number of files and columns
-int mx_get_rows(int cols, int filesnum) {
+//or number of columns base on number of files and rows
+int mx_get_opposite(int cols, int filesnum) {
     //number of rows = number of files / nubmer of cols
     //and if nofiles % nocols > 0, rows + 1
     int rows = filesnum / cols;
@@ -51,35 +52,28 @@ int mx_get_cols(t_file *dir) {
         printf("No: %d,\twidth: %d\n", i, width[i]);
 
     //iteratively calculate if columns fits into terminal
+            //try reversed algorithm (start from one row)
 
-    //check if everything can be fitted in one row
-    int total_width = 0;
-    for (int file_so_far = 0; file_so_far < filesnum; file_so_far++) {
-        total_width += width[file_so_far];
-    }
-    printf("Total width in one column: %d\n", total_width);
-    if (total_width <= term_width)
-        return filesnum;
+    int rows_so_far = 1;
 
-    int cols_so_far = 1;
-    for ( ; cols_so_far < filesnum; cols_so_far++) {
+    for ( ; rows_so_far < filesnum; rows_so_far++) {
         int max_width = 0, file_so_far = 0;
-        int rows_so_far = mx_get_rows(cols_so_far, filesnum);
+        int cols_so_far = mx_get_opposite(rows_so_far, filesnum);
 
-        printf("At cols: %d\n", cols_so_far);
-        printf("\tRows so far: %d\n", rows_so_far);
+        printf("At rows: %d\n", rows_so_far);
+        printf("\tCols so far: %d\n", cols_so_far);
 
-                //if more than one column can be left unfilled, break
-        if (rows_so_far != 1 && cols_so_far != 1) {
-            if ((rows_so_far * cols_so_far) % filesnum > rows_so_far) {
+        //         //if more than one column can be left unfilled, break
+        // if (rows_so_far != 1 && cols_so_far != 1) {
+        //     if ((rows_so_far * cols_so_far) % filesnum > rows_so_far) {
 
-                printf("Max possible\n");
+        //         printf("Max possible\n");
 
-                cols_so_far--;
-                break;
-            }
-        }
-
+        //         cols_so_far--;
+        //         break;
+        //     }
+        // }
+            //calculate max width based on how much columns there are
         for (int i = 1; i <= cols_so_far; i++) {
             int max_so_far = 0;
 
@@ -101,15 +95,14 @@ int mx_get_cols(t_file *dir) {
             printf("\t\tmax_width=%d\n", max_width);
 
         }
-        if (max_width > term_width) {
+        if (max_width < term_width) {
 
-            printf("Max width reached.\n");
+            printf("Now it fits.\n");
 
-            cols_so_far--;
             break;
         }
     }
-    return cols_so_far;
+    return mx_get_opposite(rows_so_far, filesnum);
     }
 
 //calculates number of rows and columns according to flags
