@@ -110,4 +110,9 @@ void mx_invalid_file (char *argv);
 void mx_print_table(t_table *table);
 t_table *mx_allocate_table(int rows, int cols);
 
+int mx_get_filesnum(t_file *dir);
+int mx_get_cols(t_file *dir);
+int mx_get_rows(int cols, int filesnum);
+
+
 #endif

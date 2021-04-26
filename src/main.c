@@ -18,14 +18,29 @@ int main(int argc, char **argv) {
         //read file tree
     t_file *tree = mx_get_tree(data->files, flags);
 
-    //test what is it tree struct
     tree = tree->level;
-    while (tree != NULL) {
-        printf("Node name: %s\n", tree->name);
-        printf("Node path: %s\n", tree->path);
-        printf("Node level: %p\n\n", tree->level);
-        tree = tree->next;
-    }
+    // int res = mx_get_filesnum(tree);
+
+    // printf("Number of files: %d\n", res);
+    // mx_get_cols(tree);
+    // int total = 11, cols = 3;
+    // int rows = mx_get_rows(cols, total);
+
+    // printf("Total files: %d, rows: %d, cols: %d\n", total, rows, cols);
+
+    printf("================\n");
+
+    int cols = mx_get_cols(tree);
+
+    printf("\nFINAL AMOUNT OF COLUMNS: %d\n", cols);
+    //test what is it tree struct
+    // tree = tree->level;
+    // while (tree != NULL) {
+    //     printf("Node name: %s\n", tree->name);
+    //     printf("Node path: %s\n", tree->path);
+    //     printf("Node level: %p\n\n", tree->level);
+    //     tree = tree->next;
+    // }
 
     /*---DEMO PRINT ---*/
 
