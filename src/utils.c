@@ -28,3 +28,14 @@ char *mx_get_fullpath(const char *name, const char *path) {
     return fullpath;
 }
 
+//return available terminal width (in symbols)
+int mx_get_term_width(void) {
+    struct winsize w;
+        //get terminal width
+    ioctl(1, TIOCGWINSZ, &w);
+    int term_width = w.ws_col;
+    if (term_width == 0)
+            //80 symbols by default (if failed to get width)
+        term_width = 80;
+    return term_width;
+}

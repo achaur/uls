@@ -19,20 +19,7 @@ int main(int argc, char **argv) {
     t_file *tree = mx_get_tree(data->files, flags);
 
     tree = tree->level;
-    // int res = mx_get_filesnum(tree);
 
-    // printf("Number of files: %d\n", res);
- 
-
-
-    printf("================\n");
-    // int total = 1, rows = 1;
-    // int cols = mx_get_opposite(rows, total);
-    // printf("Total files: %d, rows: %d, cols: %d\n", total, rows, cols);
-
-    int cols = mx_get_cols(tree);
-
-    printf("\nFINAL AMOUNT OF COLUMNS: %d\n", cols);
     //test what is it tree struct
     // tree = tree->level;
     // while (tree != NULL) {
