@@ -1,6 +1,8 @@
 #ifndef _ULS_H
 #define _ULS_H
 
+#define _XOPEN_SOURCE
+
 #include "libmx.h"
 
 #include <stdio.h>
@@ -15,18 +17,17 @@
 #include <dirent.h>
 
 #include <sys/errno.h>
+#include <sys/xattr.h>
 #include <pwd.h>
 #include <grp.h>
-#include <sys/xattr.h>
+
 // #include <sys/acl.h>
 #include <sys/ioctl.h>
 #include <time.h>
 #include <ctype.h>
 
+#define MX_IFSOCK 0140000  /* socket */
 
-#define _XOPEN_SOURCE
-#define FLAGS     "@1AaCcFfGhlmpRrSTtu\0"
-#define FLAGS_NUM 20
 #define RED       "\x1B[31m"
 #define GRN       "\x1B[32m"
 #define YEL       "\x1B[33m"
@@ -40,7 +41,6 @@
 #define DIR_T "\x1B[0;30;42m"
 #define DIR_X "\033[0;30;43m"
 
-
 typedef struct s_uls {
     int size;
     char *name;
@@ -48,6 +48,7 @@ typedef struct s_uls {
     char **files;
     int files_num;
     int argcf;
+    int *indexes_of_files;
 }              t_uls;
 
 //structure which holds uls flags
@@ -67,6 +68,7 @@ typedef struct s_flags {
     bool n;
     bool p;
     bool one;
+    bool F;
 }              t_flags;
 
 //structure which holds file tree
@@ -113,5 +115,16 @@ void mx_print_dir(t_file *dir, t_flags *flags);
 
 /*--- Print preparation ---*/
 void mx_get_rows_cols(int *rows, int *cols, t_file *dir, t_flags *flags);
+
+/*--- Print extended ---*/
+
+char *mx_get_index_number(t_file *file);
+char *mx_get_permissions(t_file *file);
+char *mx_get_links_num(t_file *file);
+char *mx_get_user_id(t_file *file, t_flags *flags);
+char *mx_get_group_id(t_file *file, t_flags *flags);
+char *mx_get_size(t_file *fist, t_flags *flags);
+char *mx_get_time(t_file *fist, t_flags *flags);
+char *mx_get_name(t_file *file, t_flags *flags);
 
 #endif

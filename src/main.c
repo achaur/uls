@@ -6,7 +6,7 @@ int main(int argc, char **argv) {
         //allocate struct for data and flags
     t_uls *data = (t_uls *)malloc(sizeof(t_uls));
     t_flags *flags = (t_flags *)malloc(sizeof(t_flags));
-
+    // t_file *file = (t_file *)malloc(sizeof(t_file));
         //parse arguments
     mx_parse_argc(argc, argv, data, flags);
 

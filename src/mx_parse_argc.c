@@ -1,5 +1,10 @@
 #include "uls.h"
 
+static bool mx_check_file(char *argv) {
+    struct stat buffer;
+    return (stat (argv, &buffer) == 0);
+}
+
 static void flags_init(t_flags *flags) {
     flags->R = false;
     flags->S = false;
@@ -67,6 +72,9 @@ static void flags_get(t_flags *flags, char *str) {
             case '1':
                 flags->one = true;
                 break;
+            case 'F':
+                flags->F = true;
+                break;
             default:
                 mx_invalid_flag(str[i]);
                 break;
@@ -75,15 +83,13 @@ static void flags_get(t_flags *flags, char *str) {
     
 }
 
-static void get_files_names(int argc, char **argv, t_uls *data, int pos) {
-    data->files_num = argc - 1 - data->argcf;
-    data->files = (char **)malloc(sizeof(char *) * (data->files_num + 1));
+static void get_files_names(int argc, char **argv, t_uls *data) {
+    data->files = (char **)malloc(sizeof(char *) * (data->files_num ) + 1);
     int k = 0;
     int count = 0;
 
-    for (int i = pos; i < argc; i++) {
-            // printf("arg: %s\n", argv[i]);
-            data->files[k++] = mx_strdup(argv[i]);
+    for (int i = 0; i < data->files_num; i++) {
+            data->files[k++] = mx_strdup(argv[data->indexes_of_files[count++]]);
     }
         //terminate array with NULL-string
     data->files[k] = NULL;
@@ -94,15 +100,26 @@ void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
     bool tmp = false;
     data->argcf = 0; 
     int arg_so_far = 1;
+    data->indexes_of_files=(int *)malloc(sizeof(int));//allocating a memory for an array for storing
+                                                      //indexes of right files
+    int k = 0; 
+
     for (; arg_so_far < argc; arg_so_far++) {
         if (argv[arg_so_far][0] == '-' && tmp == false) {
             flags_get(flags, argv[arg_so_far]);
             data->argcf++;
         }    
         else {
-            tmp = true;
-            break;
-        }
+            if (mx_check_file(argv[arg_so_far])) {
+                data->indexes_of_files[k++] = arg_so_far;
+                data->files_num++;
+                tmp = true;
+            }
+            else {
+                mx_invalid_file(argv[arg_so_far]);
+                tmp = true;
+            }
+        }   
     }
-    get_files_names(argc, argv, data, arg_so_far);
+    get_files_names(argc, argv, data);
 }
