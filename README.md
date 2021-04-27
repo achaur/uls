@@ -13,8 +13,5 @@ To-do:
  - add -o flag (like l+G)
  - add -x flag (list by lines instead of columns) (may be hard)
 
- - remove final tabulation in column output (DONE)
- - while calculating number of rows and columns, take into account number of tab spaces (DONE)
- - pack print parts into one module
 IDEA FOR SPEED IMPROVEMENT:
 read files' stat() in print section, only when needed (with -l flag);

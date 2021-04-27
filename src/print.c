@@ -96,14 +96,13 @@ static void print_table(t_table *table) {
 }
 
 //fill table with given shototam
-static void fill_table(t_table *table, t_file *files) {
+static void fill_table(t_table *table, t_file *files, t_flags *flags) {
     t_file *file = files;
         //iterate over list
     int row_so_far = 0, col_so_far = 0;
     while (file != NULL) {
         //get file name
-        char *filename = mx_get_filename(file);
-        // printf("At row %d, col %d, filename: %s\n", row_so_far, col_so_far, filename);
+        char *filename = mx_get_name(file, flags);
         table->table[row_so_far][col_so_far] = filename;
         row_so_far++;
         //go to next column
@@ -111,6 +110,47 @@ static void fill_table(t_table *table, t_file *files) {
             col_so_far++;
             row_so_far = 0;
         }
+        file = file->next;
+    }
+}
+
+static void fill_table_long(t_table *table, t_file *files, t_flags *flags) {
+    t_file *file = files;
+    int row = 0;
+        //iterate over list
+    while (file != NULL) {
+        int col = 0;
+            //fill ID (if -i flag is active)
+        if (flags->i) {
+            table->table[row][col] = mx_get_index_number(file);
+            col++;
+        }
+            //fill permissions
+        table->table[row][col] = mx_strdup("Perm");
+        col++;
+            //fill links
+        table->table[row][col] = mx_get_links_num(file);
+        col++;
+            //fill owner (if -g flag is not active)
+        if (!flags->g) {
+            table->table[row][col] = mx_get_user_id(file, flags);
+            col++;
+        }
+            //fill group (if -G flag is not active)
+        if (!flags->G) {
+            table->table[row][col] = mx_get_group_id(file, flags);
+            col++;
+        }
+            //fill size
+        table->table[row][col] = mx_strdup("Size");
+        col++;
+            //fill date
+        table->table[row][col] = mx_strdup("Date");
+        col++;
+            //fill name
+        table->table[row][col] = mx_get_name(file, flags);
+            //go to next file
+        row++;
         file = file->next;
     }
 }
@@ -123,7 +163,10 @@ void mx_print_dir(t_file *dir, t_flags *flags) {
         //allocate table
     t_table *table = allocate_table(rows, cols);
         //fill table
-    fill_table(table, dir->level);
+    if (flags->l || flags->n)
+        fill_table_long(table, dir->level, flags);
+    else
+        fill_table(table, dir->level, flags);
         //print table
     print_table(table);
 } 

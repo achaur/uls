@@ -16,6 +16,7 @@ static void flags_init(t_flags *flags) {
     flags->a = false;
     flags->A = false;
     flags->G = false;
+    flags->g = false;
     flags->h = false;
     flags->i = false;
     flags->n = false;
@@ -25,7 +26,6 @@ static void flags_init(t_flags *flags) {
 
 static void flags_get(t_flags *flags, char *str) {
     for (int i = 1; str[i] != '\0'; i++) {
-        printf("Flag: %c\n", str[i]);
         switch (str[i]) {
             case 'R':
                 flags->R = true;
@@ -56,6 +56,9 @@ static void flags_get(t_flags *flags, char *str) {
                 break;
             case 'G':
                 flags->G = true;
+                break;
+            case 'g':
+                flags->g = true;
                 break;
             case 'h':
                 flags->h = true;

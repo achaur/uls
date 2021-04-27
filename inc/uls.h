@@ -63,6 +63,7 @@ typedef struct s_flags {
     bool a;
     bool A;
     bool G;
+    bool g;
     bool h;
     bool i;
     bool n;
@@ -110,14 +111,12 @@ void mx_invalid_file (char *argv);
 /*--- Print ---*/
 //how much spaces between columns
 #define TAB_SIZE    2
-char *mx_get_filename(t_file *file);
 void mx_print_dir(t_file *dir, t_flags *flags);
 
 /*--- Print preparation ---*/
 void mx_get_rows_cols(int *rows, int *cols, t_file *dir, t_flags *flags);
 
 /*--- Print extended ---*/
-
 char *mx_get_index_number(t_file *file);
 char *mx_get_permissions(t_file *file);
 char *mx_get_links_num(t_file *file);

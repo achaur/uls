@@ -75,10 +75,13 @@ static int get_rows(t_file *dir) {
 void mx_get_rows_cols(int *rows, int *cols, t_file *dir, t_flags *flags) {
         //if there is -l or -n flag, calculate number of columns according to flags
     if (flags->l || flags->n) {
-        if (flags->G)
-            *cols = 6;
-        else
-            *cols = 7;
+        *cols = 7; //default
+        if (flags->G)       //do not print group
+            *cols -= 1;
+        if (flags->g)       //do not print owner
+            *cols -= 1;
+        if (flags->i)       //print file ID
+            *cols += 1;
         *rows = get_filesnum(dir);
     } else if (flags->one) {
         //if there is -1 flag, one column
