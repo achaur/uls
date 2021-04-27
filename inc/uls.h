@@ -82,6 +82,7 @@ typedef struct  s_file {
 typedef struct  s_table {
     int rows;                   //number of rows in table
     int cols;                   //number of columns in table
+    int filesnum;               //number of files in table
     int *max_col_size;          //array which holds max col width (for true intendation)
     char ***table;              //2-D array of strings (data to print)
 }               t_table;
@@ -110,8 +111,10 @@ void mx_invalid_file (char *argv);
 #define TAB_SIZE    2
 void mx_print_table(t_table *table);
 t_table *mx_allocate_table(int rows, int cols);
+char *mx_get_filename(t_file *file);
+void mx_fill_table(t_table *table, t_file *files);
 
 /*--- Print preparation ---*/
-void mx_get_rows_cols(int *rows, int *cols, t_file *dir, t_flags *flags);
+void mx_get_rows_cols(int *rows, int *cols, int *filesnum, t_file *dir, t_flags *flags);
 
 #endif

@@ -29,6 +29,19 @@ int main(int argc, char **argv) {
     //     tree = tree->next;
     // }
 
+        /*--- Try to print --- */
+        //get rows and cols
+    int rows, cols, filesnum;
+    mx_get_rows_cols(&rows, &cols, &filesnum, tree, flags);
+    // printf("%d columns and %d rows\n", cols, rows);
+        //allocate table for them
+    t_table *table = mx_allocate_table(rows, cols);
+    table->filesnum = filesnum;
+        //fill table
+    mx_fill_table(table, tree);
+        //print table
+    mx_print_table(table);
+    // printf("\nPrint finished\n");
     /*---DEMO PRINT ---*/
 
     // //try to fill and print table
