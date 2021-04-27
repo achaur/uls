@@ -6,14 +6,14 @@ char *mx_get_name(t_file *fist, t_flags *flags) {
     if (!flags->F) 
         return fist->name;
     else if (flags->l && flags->F) {
-        switch (fist->filestat.st_mode & MX_IFMT) {
-            case MX_IFDIR:                         //check if the file is a directory
+        switch (fist->filestat.st_mode & S_IFMT) {
+            case S_IFDIR:                         //check if the file is a directory
                 return mx_strjoin(fist->name, "/");
-            case MX_IXUSR:                         //check if the file is an executable file
+            case S_IXUSR:                         //check if the file is an executable file
                 return mx_strjoin(fist->name, "*");
-            case MX_IFIFO:                         //check if the file is a pipe
+            case S_IFIFO:                         //check if the file is a pipe
                 return mx_strjoin(fist->name, "|");
-            case MX_IFLNK:                         //check if the file is a symbolic link
+            case S_IFLNK:                         //check if the file is a symbolic link
                 return mx_strjoin(fist->name, "@");
             case MX_IFSOCK:                        //check if the file is a socket
                 return mx_strjoin(fist->name, "=");
