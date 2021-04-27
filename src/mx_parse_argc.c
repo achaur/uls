@@ -72,6 +72,9 @@ static void flags_get(t_flags *flags, char *str) {
             case '1':
                 flags->one = true;
                 break;
+            case 'F':
+                flags->F = true;
+                break;
             default:
                 mx_invalid_flag(str[i]);
                 break;

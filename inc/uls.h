@@ -91,6 +91,7 @@ typedef struct s_flags {
     bool n;
     bool p;
     bool one;
+    bool F;
 }              t_flags;
 
 //structure which holds file tree
@@ -136,7 +137,11 @@ void mx_print_table(t_table *table);
 t_table *mx_allocate_table(int rows, int cols);
 
 #endif
-
-char *mx_get_links_num(char *file_name);
-char *mx_get_user_rights(t_file *file, t_flags *flags);
-int mx_get_user_id(t_file *file, t_flags *flags);
+char *mx_get_index_number(t_file *fist);
+char *mx_get_permissions(t_file *file);
+char *mx_get_links_num(t_file *fist);
+char *mx_get_user_id(t_file *file, t_flags *flags);
+char *mx_get_group_id(t_file *fist, t_flags *flags);
+char *mx_get_size(t_file *fist, t_flags *flags);
+char *mx_get_time(t_file *fist, t_flags *flags);
+char *mx_get_name(t_file *first, t_flags *flags);

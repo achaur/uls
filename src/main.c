@@ -6,7 +6,7 @@ int main(int argc, char **argv) {
         //allocate struct for data and flags
     t_uls *data = (t_uls *)malloc(sizeof(t_uls));
     t_flags *flags = (t_flags *)malloc(sizeof(t_flags));
-    t_file *file = (t_file *)malloc(sizeof(t_file));
+    // t_file *file = (t_file *)malloc(sizeof(t_file));
         //parse arguments
     mx_parse_argc(argc, argv, data, flags);
 
@@ -17,8 +17,8 @@ int main(int argc, char **argv) {
 
     //     //scan directories recursively
     // char *path = mx_strdup(argv[1]);
-    // t_file *fist = NULL;
-    // fist = mx_scan_dir(path);
+    t_file *fist = NULL;
+    fist = mx_scan_dir("src");
 
     // /*---DEMO PRINT ---*/
 
@@ -37,13 +37,14 @@ int main(int argc, char **argv) {
     // table->table[2][2] = mx_strdup("bnm");
 
     // mx_print_table(table);
-    // mx_get_user_id(file, flags);
-    // mx_get_user_rights(file, flags);
-    // for (int i = 0; i < data->files_num; i++) {
-    //     printf("%s\n", data->files[i]);
-    // }
-    // printf("%s\n", file->name);
-    // mx_get_links_num(argv[1]);
-    printf("%s\n", mx_get_links_num(argv[1]));
+    
+    // mx_get_permissions(fist);
+    // mx_get_links_num(fist);
+    // printf("%s\n", mx_get_user_id(fist, flags));
+    // printf("%s\n", mx_get_group_id(fist, flags));
+    // printf("00000: %s\n", mx_get_size(fist, flags));
+    // printf("%s\n", mx_get_time(fist, flags));
+    // printf("%s\n", mx_get_index_number(fist));
+    // printf("%s\n", mx_get_name(fist, flags));
     return 0;
 }

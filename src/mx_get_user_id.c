@@ -1,7 +1,11 @@
 #include "uls.h"
 
-int mx_get_user_id(t_file *file, t_flags *flags) {
-    int buf = file->filestat.st_uid;
-    printf("%d\n", buf);
-    return buf;
+char *mx_get_user_id(t_file *fist, t_flags *flags) {
+    fist->pwd = getpwuid(fist->filestat.st_uid);
+    
+    if (flags->n) 
+        return mx_itoa(fist->filestat.st_uid);
+    else if (flags->l)
+        return fist->pwd->pw_name;
+    return NULL;
 }
