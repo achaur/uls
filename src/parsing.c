@@ -11,7 +11,7 @@ static t_file *file_create_node(char *name, char *path, bool first, t_flags *fla
 
         //get fullpath to file/directory
     char *fullpath = mx_get_fullpath(name, path);
-    printf("Fullpath: %s\n", fullpath);
+    // printf("Fullpath: %s\n", fullpath);
         //try to read stat
     
     /*--- ADD ERROR HANDLING HERE ---
@@ -20,7 +20,7 @@ static t_file *file_create_node(char *name, char *path, bool first, t_flags *fla
     --------------------------------*/
 
     int statnum = stat(fullpath, &(node->filestat));
-    printf("Stat for %s returned %d\n", name, statnum);
+    // printf("Stat for %s returned %d\n", name, statnum);
         //fill data stucture with name and path
     node->name = mx_strdup(name);
     node->path = mx_strdup(path);
@@ -28,14 +28,14 @@ static t_file *file_create_node(char *name, char *path, bool first, t_flags *fla
     if(S_ISDIR(node->filestat.st_mode)) {
         if (first) {
                 //if this is the first call of scandir, dont check for root directory
-            printf("%s is a directory\n", node->name);
-            printf("\tGoing next level..\n");
+            // printf("%s is a directory\n", node->name);
+            // printf("\tGoing next level..\n");
             node->level = scan_dir(fullpath, flags);
         } else if (flags->R) {
                 //if not first call, check for recursion available
             if(!mx_is_root(node->name)) {
-                printf("%s is a directory\n", node->name);
-                printf("\tGoing next level..\n");
+                // printf("%s is a directory\n", node->name);
+                // printf("\tGoing next level..\n");
                 node->level = scan_dir(fullpath, flags);
             }
         } else {
@@ -74,7 +74,7 @@ static t_file *scan_dir(char *path, t_flags *flags) {
     int counter = 0;
 
         //error handling prototype
-    printf("Opening directory: %s\n", path);
+    // printf("Opening directory: %s\n", path);
     dir = opendir(path);
 
         /*--- ADD ERROR HANDLING HERE ---
@@ -87,16 +87,16 @@ static t_file *scan_dir(char *path, t_flags *flags) {
     while ((entry = readdir(dir)) != NULL) {
         if (mx_is_root(entry->d_name)) {
             if (flags->a) {
-                printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
+                // printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
                 file_push_back(&filelist, entry->d_name, path, 0, flags);
             }
         } else if (mx_is_hidden(entry->d_name)) {
             if (flags->a || flags->A) {
-                printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
+                // printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
                 file_push_back(&filelist, entry->d_name, path, 0, flags);
             }
         } else {
-            printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
+            // printf("Counter: %d, Filename: %s\n", counter++, entry->d_name);
             file_push_back(&filelist, entry->d_name, path, 0, flags);
         }
     }
@@ -108,7 +108,7 @@ static t_file *scan_dir(char *path, t_flags *flags) {
         errno = EBADF - wrong directory
     --------------------------------*/
 
-    printf("\tClosing directory %s\n", path);
+    // printf("\tClosing directory %s\n", path);
 
     /*--- ADD SORTING FUNCTION HERE ---
     *--------------------------------------*/

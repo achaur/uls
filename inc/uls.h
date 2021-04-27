@@ -98,6 +98,7 @@ t_file *mx_get_tree(char **files, t_flags *flags);
 bool mx_is_root(const char *dir);
 char *mx_get_fullpath(const char *name, const char *path);
 bool mx_is_hidden(const char *dir);
+int mx_get_term_width(void);
 
     /*--- Errors ---*/
 void mx_invalid_flag(char c);
@@ -107,7 +108,10 @@ void mx_invalid_file (char *argv);
 /*--- Print ---*/
 //how much spaces between columns
 #define TAB_SIZE    2
-void mx_print_table(t_table *table);
-t_table *mx_allocate_table(int rows, int cols);
+char *mx_get_filename(t_file *file);
+void mx_print_dir(t_file *dir, t_flags *flags);
+
+/*--- Print preparation ---*/
+void mx_get_rows_cols(int *rows, int *cols, t_file *dir, t_flags *flags);
 
 #endif
