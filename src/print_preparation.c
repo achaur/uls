@@ -42,8 +42,10 @@ static int find_rows(int filesnum, int *width) {
                 if (width[file_so_far] > max_so_far)
                     max_so_far = width[file_so_far];
             }
-            max_width += max_so_far;
+            max_width += max_so_far + TAB_SIZE;
         }
+            //number of tabs is one less than number of columns
+        max_width -= TAB_SIZE;
             //if it fits into terminal window, break
         if (max_width < term_width)
             break;
@@ -70,7 +72,7 @@ static int get_rows(t_file *dir) {
     }
 
 //calculates number of rows and columns according to flags
-void mx_get_rows_cols(int *rows, int *cols, int *filesnum, t_file *dir, t_flags *flags) {
+void mx_get_rows_cols(int *rows, int *cols, t_file *dir, t_flags *flags) {
         //if there is -l or -n flag, calculate number of columns according to flags
     if (flags->l || flags->n) {
         if (flags->G)
@@ -78,16 +80,13 @@ void mx_get_rows_cols(int *rows, int *cols, int *filesnum, t_file *dir, t_flags 
         else
             *cols = 7;
         *rows = get_filesnum(dir);
-        *filesnum = get_filesnum(dir);
     } else if (flags->one) {
         //if there is -1 flag, one column
         *cols = 1;
         *rows = get_filesnum(dir);
-        *filesnum = get_filesnum(dir);
     } else {
         //if -C flag or no other flags, calculate iteratively for terminal width
         *rows = get_rows(dir);
         *cols = get_opposite(*rows, get_filesnum(dir));
-        *filesnum = get_filesnum(dir);
     }
 }

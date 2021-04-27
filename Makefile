@@ -5,7 +5,7 @@ SDIR = src
 LDIR = libmx
 #compiler settings
 CC = clang
-CFLAGS = -std=c11
+CFLAGS = -std=c11 -g
 CCFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
 FLAGS = $(CFLAGS) -I $(IDIR) -I $(LDIR)/$(IDIR)
 #dependencies
