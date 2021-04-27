@@ -10,12 +10,16 @@ int main(int argc, char **argv) {
     t_file *tree = mx_get_tree(data->files, flags);
 
         /*--- Try to print --- */
-    while (tree != NULL) {
-        printf("%s:\n", tree->name);
-        mx_print_dir(tree, flags);
-        if(tree->next != NULL)
+        t_file *temp = tree;
+    while (temp != NULL) {
+        printf("%s:\n", temp->name);
+        mx_print_dir(temp, flags);
+        if(temp->next != NULL)
             printf("\n");
-        tree = tree->next;
+        temp = temp->next;
     }
+
+    mx_free_dir(tree);
+    
     return 0;
 }

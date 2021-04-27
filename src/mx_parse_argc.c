@@ -22,6 +22,7 @@ static void flags_init(t_flags *flags) {
     flags->n = false;
     flags->p = false;
     flags->one = false;
+    flags->F = false;
 }
 
 static void flags_get(t_flags *flags, char *str) {

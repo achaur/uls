@@ -1,32 +1,5 @@
 #include "uls.h"
 
-/*--- PRINT FLAGS TO IMPLEMENT ---
-* -l : Print with long listing
-* -a : print all hidden files (starts with .)
-* -A : print all hidden files, but do not print ',' and '..'
-*       which are directory references
-* -G : in long listing, do not print group
-* -h : print size with K, M, G etc.
-* -i : print index number (stat.st_ino)
-* -n : same as -l, but print group and user IDs instead of names
-* -p : append / symbol to directories
-* -1 : one file per file
-* -F : Display a slash (`/') immediately after each pathname that is a directory, an asterisk (`*') after each that is executable, an at sign (`@') after each symbolic link,
-             an equals sign (`=') after each socket, a percent sign (`%') after each whiteout, and a vertical bar (`|') after each that is a FIFO.
------------------------------*/
-
-/*--- TO-DO:
-    - get index number
-    - get user rights
-    - get number of links
-    - get username (read -n flag)
-    - get usersid (read -n flag)
-    - size (read -h flag)
-    - get date
-    - get name (read -F flag)
-
---------------------------*/
-
 //prints needed amount of whitespaces for pretty output
 void print_tab(int max_size, char *str) {
     int spaces = max_size - mx_strlen(str) + TAB_SIZE;
@@ -121,32 +94,22 @@ static void fill_table_long(t_table *table, t_file *files, t_flags *flags) {
     while (file != NULL) {
         int col = 0;
             //fill ID (if -i flag is active)
-        if (flags->i) {
-            table->table[row][col] = mx_get_index_number(file);
-            col++;
-        }
+        if (flags->i)
+            table->table[row][col++] = mx_get_index_number(file);
             //fill permissions
-        table->table[row][col] = mx_strdup("Perm");
-        col++;
+        table->table[row][col++] = mx_get_permissions(file);
             //fill links
-        table->table[row][col] = mx_get_links_num(file);
-        col++;
+        table->table[row][col++] = mx_get_links_num(file);
             //fill owner (if -g flag is not active)
-        if (!flags->g) {
-            table->table[row][col] = mx_get_user_id(file, flags);
-            col++;
-        }
+        if (!flags->g)
+            table->table[row][col++] = mx_get_user_id(file, flags);
             //fill group (if -G flag is not active)
-        if (!flags->G) {
-            table->table[row][col] = mx_get_group_id(file, flags);
-            col++;
-        }
+        if (!flags->G)
+            table->table[row][col++] = mx_get_group_id(file, flags);
             //fill size
-        table->table[row][col] = mx_strdup("Size");
-        col++;
+        table->table[row][col++] = mx_strdup("Size");
             //fill date
-        table->table[row][col] = mx_strdup("Date");
-        col++;
+        table->table[row][col++] = mx_strdup("Date");
             //fill name
         table->table[row][col] = mx_get_name(file, flags);
             //go to next file
@@ -169,4 +132,6 @@ void mx_print_dir(t_file *dir, t_flags *flags) {
         fill_table(table, dir->level, flags);
         //print table
     print_table(table);
+
+    mx_free_table(table);
 } 

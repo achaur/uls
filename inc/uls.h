@@ -126,4 +126,8 @@ char *mx_get_size(t_file *fist, t_flags *flags);
 char *mx_get_time(t_file *fist, t_flags *flags);
 char *mx_get_name(t_file *file, t_flags *flags);
 
+/*--- Free ---*/
+void mx_free_dir(t_file *dir);
+void mx_free_table(t_table *table);
+
 #endif

@@ -1,17 +1,21 @@
 # uls
 Recode the system's utility ls.
 
-To-do:
- - add pipe handling
- - add sorting (at least aplhabetical)
- - add -i flag for print (print file ID)
+To-do for minimal version:
+ - free memory
+ - sort by name
+ - if output is piped, use -1 as default instead of -C
+ - calculate size for -l flag
+ - print files itself if they are arguments
+
+ To-do for creative version:
+ - recursive output
+ - recursive sorting
+ - additional sorting flags
  - add -d flag (list directory itself)
- - add -F flag (classificator)
- - add -g flag (in long list, do not print owner)
- - add flags mentioned in 'print.c' file
  - add -m flag (print all files as comma-separated)
  - add -o flag (like l+G)
  - add -x flag (list by lines instead of columns) (may be hard)
+ - add colourful output
+ - help and version flags
 
-IDEA FOR SPEED IMPROVEMENT:
-read files' stat() in print section, only when needed (with -l flag);

@@ -37,7 +37,8 @@ static t_file *file_create_node(char *name, char *path, bool first, t_flags *fla
                 // printf("%s is a directory\n", node->name);
                 // printf("\tGoing next level..\n");
                 node->level = scan_dir(fullpath, flags);
-            }
+            } else
+                node->level = NULL;
         } else {
                 //no next level
             node->level = NULL;
