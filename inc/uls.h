@@ -125,7 +125,7 @@ char *mx_get_links_num(t_file *file);
 char *mx_get_user_id(t_file *file, t_flags *flags);
 char *mx_get_group_id(t_file *file, t_flags *flags);
 char *mx_get_size(t_file *fist, t_flags *flags);
-char *mx_get_time(t_file *fist, t_flags *flags);
+char *mx_get_time(t_file *file, t_flags *flags);
 char *mx_get_name(t_file *file, t_flags *flags);
 
 /*--- Free ---*/

@@ -109,7 +109,7 @@ static void fill_table_long(t_table *table, t_file *files, t_flags *flags) {
             //fill size
         table->table[row][col++] = mx_strdup("Size");
             //fill date
-        table->table[row][col++] = mx_strdup("Date");
+        table->table[row][col++] = mx_get_time(file, flags);
             //fill name
         table->table[row][col] = mx_get_name(file, flags);
             //go to next file
