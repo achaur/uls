@@ -70,6 +70,7 @@ typedef struct s_flags {
     bool p;
     bool one;
     bool F;
+    bool C;
 }              t_flags;
 
 //structure which holds file tree

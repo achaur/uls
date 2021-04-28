@@ -5,13 +5,15 @@ Ideas for speedup: use less mallocs
 
 To-do for minimal version:
  - free memory
- - sort by name
- - if output is piped, use -1 as default instead of -C
+ - proper error handling
+ - if output is piped, use -1 as default instead of -C +
+ - read links properly
  - calculate size for -l flag +
  - print files itself if they are arguments +
 
  To-do for creative version:
  - recursive output
+ - sort by name
  - recursive sorting
  - additional sorting flags
  - add -d flag (list directory itself)

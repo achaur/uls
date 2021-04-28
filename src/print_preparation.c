@@ -87,9 +87,16 @@ void mx_get_rows_cols(int *rows, int *cols, t_file *dir, t_flags *flags) {
         //if there is -1 flag, one column
         *cols = 1;
         *rows = get_filesnum(dir);
-    } else {
-        //if -C flag or no other flags, calculate iteratively for terminal width
+    } else if (flags->C) {
+        //if -C, calculate iteratively for terminal width
         *rows = get_rows(dir);
         *cols = get_opposite(*rows, get_filesnum(dir));
+        //if output is not redirected, -C by default
+    } else if (isatty(STDOUT_FILENO)) {
+        *rows = get_rows(dir);
+        *cols = get_opposite(*rows, get_filesnum(dir));
+    } else {
+        *cols = 1;
+        *rows = get_filesnum(dir);
     }
 }
