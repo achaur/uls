@@ -135,3 +135,74 @@ void mx_print_dir(t_file *dir, t_flags *flags) {
 
     mx_free_table(table);
 } 
+
+//copy nodes from file tree to new list
+static t_file *copy_node(t_file *node) {
+    t_file *copy = (t_file*)malloc(sizeof(t_file));
+
+    if (node == NULL) {
+        copy->name = NULL;
+        copy->path = NULL;
+    } else {
+        copy->name = mx_strdup(node->name);
+        copy->path = mx_strdup(node->path);
+        copy->filestat = node->filestat;
+    }
+    copy->level = NULL;
+    copy->next = NULL;
+    
+    return copy;
+}
+
+//push back copy to the new list
+static void copy_push_back(t_file **dst, t_file *src) {
+    if (*dst == NULL) {
+        *dst = copy_node(src);
+        return;
+    }
+
+    t_file *current = *dst;
+    while(current->next != NULL)
+        current = current->next;
+    current->next = copy_node(src);
+}
+
+//prints only files (or directory itself if -d flag)
+static bool print_files(t_file *tree, t_flags *flags) {
+    //indicates if there was any files to print
+    bool res = false;
+        //allocate new instance
+    t_file *files = copy_node(NULL);
+        //push back all that shit
+    while (tree != NULL) {
+        if(!S_ISDIR(tree->filestat.st_mode)) {
+            copy_push_back(&(files->level), tree);
+            res = true;
+        }
+        tree = tree->next;
+    }
+    if(res)
+        mx_print_dir(files, flags);
+    mx_free_dir(files);
+    return res;
+}
+
+void mx_print_tree(t_file *tree, t_flags *flags) {
+        //try to print files first
+    print_files(tree, flags);
+        // mx_printchar('\n');
+        //if only one file/dir to print, do not print it's name
+    if(tree->next == NULL)
+        mx_print_dir(tree, flags);
+    else {
+        while (tree != NULL) {
+            if(S_ISDIR(tree->filestat.st_mode)) {
+                mx_printchar('\n');
+                mx_printstr(tree->name);
+                mx_printstr(":\n");
+                mx_print_dir(tree, flags);
+            }
+        tree = tree->next;
+        }
+    }
+}

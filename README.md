@@ -6,7 +6,7 @@ To-do for minimal version:
  - sort by name
  - if output is piped, use -1 as default instead of -C
  - calculate size for -l flag
- - print files itself if they are arguments
+ - print files itself if they are arguments +
 
  To-do for creative version:
  - recursive output
