@@ -1,11 +1,13 @@
 # uls
 Recode the system's utility ls.
 
+Ideas for speedup: use less mallocs
+
 To-do for minimal version:
  - free memory
  - sort by name
  - if output is piped, use -1 as default instead of -C
- - calculate size for -l flag
+ - calculate size for -l flag +
  - print files itself if they are arguments +
 
  To-do for creative version:

@@ -102,6 +102,7 @@ bool mx_is_root(const char *dir);
 char *mx_get_fullpath(const char *name, const char *path);
 bool mx_is_hidden(const char *dir);
 int mx_get_term_width(void);
+void mx_print_tot_size(t_file *dir, t_flags *flags);
 
     /*--- Errors ---*/
 void mx_invalid_flag(char c);

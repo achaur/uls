@@ -131,6 +131,8 @@ void mx_print_dir(t_file *dir, t_flags *flags) {
     else
         fill_table(table, dir->level, flags);
         //print table
+    if (flags ->l || flags->n)
+        mx_print_tot_size(dir->level, flags);
     print_table(table);
 
     mx_free_table(table);
@@ -190,7 +192,6 @@ static bool print_files(t_file *tree, t_flags *flags) {
 void mx_print_tree(t_file *tree, t_flags *flags) {
         //try to print files first
     print_files(tree, flags);
-        // mx_printchar('\n');
         //if only one file/dir to print, do not print it's name
     if(tree->next == NULL)
         mx_print_dir(tree, flags);

@@ -39,3 +39,19 @@ int mx_get_term_width(void) {
         term_width = 80;
     return term_width;
 }
+
+//prints total size of folder components
+void mx_print_tot_size(t_file *dir, t_flags *flags) {
+    int sum_so_far = 0;
+    while (dir != NULL) {
+        sum_so_far += dir->filestat.st_size / 4096;
+        if (dir->filestat.st_size % 4096 > 0)
+            sum_so_far++;
+        dir = dir->next;
+    }
+    sum_so_far *= 4;
+    mx_printstr("total ");
+    mx_printint(sum_so_far);
+    mx_printchar('\n');
+    
+}
