@@ -37,14 +37,6 @@ int main(int argc, char **argv) {
     // table->table[2][2] = mx_strdup("bnm");
 
     // mx_print_table(table);
-    
-    // mx_get_permissions(fist);
-    // mx_get_links_num(fist);
-    // printf("%s\n", mx_get_user_id(fist, flags));
-    // printf("%s\n", mx_get_group_id(fist, flags));
-    // printf("00000: %s\n", mx_get_size(fist, flags));
-    // printf("%s\n", mx_get_time(fist, flags));
-    // printf("%s\n", mx_get_index_number(fist));
-    // printf("%s\n", mx_get_name(fist, flags));
+    // printf("size of the file %s: %s\n", fist->name, mx_get_size(fist, flags));
     return 0;
 }

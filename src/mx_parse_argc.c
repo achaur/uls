@@ -6,7 +6,7 @@ static bool mx_check_file(char *argv) {
 }
 
 static void flags_init(t_flags *flags) {
-    flags->r = false;
+    flags->R = false;
     flags->S = false;
     flags->t = false;
     flags->u = false;
@@ -16,19 +16,20 @@ static void flags_init(t_flags *flags) {
     flags->a = false;
     flags->A = false;
     flags->G = false;
+    flags->g = false;
     flags->h = false;
     flags->i = false;
     flags->n = false;
     flags->p = false;
     flags->one = false;
+    flags->F = false;
 }
 
 static void flags_get(t_flags *flags, char *str) {
     for (int i = 1; str[i] != '\0'; i++) {
-        printf("Flag: %c\n", str[i]);
         switch (str[i]) {
-            case 'r':
-                flags->r = true;
+            case 'R':
+                flags->R = true;
                 break;
             case 'S':
                 flags->S = true;
@@ -57,6 +58,9 @@ static void flags_get(t_flags *flags, char *str) {
             case 'G':
                 flags->G = true;
                 break;
+            case 'g':
+                flags->g = true;
+                break;
             case 'h':
                 flags->h = true;
                 break;
@@ -84,28 +88,29 @@ static void flags_get(t_flags *flags, char *str) {
 }
 
 static void get_files_names(int argc, char **argv, t_uls *data) {
-    data->files = (char **)malloc(sizeof(char *) * (data->files_num ) + 1);
+    data->files = (char **)malloc(sizeof(char *) * (data->files_num ) + 10);
     int k = 0;
     int count = 0;
 
     for (int i = 0; i < data->files_num; i++) {
             data->files[k++] = mx_strdup(argv[data->indexes_of_files[count++]]);
     }
+        //terminate array with NULL-string
+    data->files[k] = NULL;
 }
 
 void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
     flags_init(flags);
     bool tmp = false;
-    data->argcf = 0; 
+    data->files_num = 0;
     int arg_so_far = 1;
-    data->indexes_of_files=(int *)malloc(sizeof(int));//allocating a memory for an array for storing
-                                                      //indexes of right files
+    data->indexes_of_files = (int *)malloc(sizeof(int *));//allocating a memory for an array for storing
+                                                        //indexes of right files
     int k = 0; 
 
     for (; arg_so_far < argc; arg_so_far++) {
         if (argv[arg_so_far][0] == '-' && tmp == false) {
             flags_get(flags, argv[arg_so_far]);
-            data->argcf++;
         }    
         else {
             if (mx_check_file(argv[arg_so_far])) {
@@ -114,7 +119,9 @@ void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
                 tmp = true;
             }
             else {
-                mx_invalid_file(argv[arg_so_far]);
+                write(2, "uls: ", mx_strlen("uls: "));
+                perror(argv[arg_so_far]);
+                // mx_invalid_file(argv[arg_so_far]);
                 tmp = true;
             }
         }   

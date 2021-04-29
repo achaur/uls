@@ -69,6 +69,8 @@ typedef struct s_flags {
     bool p;
     bool one;
     bool F;
+    bool R;
+    bool g;
 }              t_flags;
 
 //structure which holds file tree
@@ -103,7 +105,6 @@ char *mx_get_fullpath(const char *path, const char *file);
     /*--- Errors ---*/
 void mx_invalid_flag(char c);
 void mx_printerr(const char *s);
-void mx_invalid_file (char *argv);
 
 /*--- Print ---*/
 //how much spaces between columns
@@ -122,4 +123,6 @@ char *mx_get_size(t_file *fist, t_flags *flags);
 char *mx_get_time(t_file *fist, t_flags *flags);
 char *mx_get_name(t_file *file, t_flags *flags);
 
+/*--- Clean memory ---*/
+void mx_clean_memory(t_uls *data);
 #endif
