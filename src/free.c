@@ -36,3 +36,16 @@ void mx_free_table(t_table *table) {
     free(table);
     table = NULL;
 }
+
+void mx_clean_memory(t_uls *data, t_flags *flags) {
+    if (data->files)
+        mx_del_strarr(&data->files);
+    if (data->indexes_of_files) {
+        free(data->indexes_of_files);
+        data->indexes_of_files = NULL;
+    }
+    free(data);
+    data = NULL;
+    free(flags);
+    flags = NULL;
+}

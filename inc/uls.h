@@ -43,7 +43,6 @@
 
 typedef struct s_uls {
     int size;
-    char *name;
     int flags_num;
     char **files;
     int files_num;
@@ -109,7 +108,6 @@ char *mx_get_link(char *fullpath, char *name);
     /*--- Errors ---*/
 void mx_invalid_flag(char c);
 void mx_printerr(const char *s);
-void mx_invalid_file (char *argv);
 
 /*--- Print ---*/
 //how much spaces between columns
@@ -134,5 +132,6 @@ char *mx_get_name(t_file *file, t_flags *flags);
 /*--- Free ---*/
 void mx_free_dir(t_file *dir);
 void mx_free_table(t_table *table);
+void mx_clean_memory(t_uls *data, t_flags *flags);
 
 #endif

@@ -107,7 +107,7 @@ static void fill_table_long(t_table *table, t_file *files, t_flags *flags) {
         if (!flags->G)
             table->table[row][col++] = mx_get_group_id(file, flags);
             //fill size
-        table->table[row][col++] = mx_strdup("Size");
+        table->table[row][col++] = mx_get_size(file, flags);
             //fill date
         table->table[row][col++] = mx_get_time(file, flags);
             //fill name

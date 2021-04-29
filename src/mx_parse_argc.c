@@ -92,7 +92,7 @@ static void flags_get(t_flags *flags, char *str) {
 }
 
 static void get_files_names(int argc, char **argv, t_uls *data) {
-    data->files = (char **)malloc(sizeof(char *) * (data->files_num ) + 1);
+    data->files = (char **)malloc(sizeof(char *) * (data->files_num ) + 10);
     int k = 0;
     int count = 0;
 
@@ -106,16 +106,15 @@ static void get_files_names(int argc, char **argv, t_uls *data) {
 void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
     flags_init(flags);
     bool tmp = false;
-    data->argcf = 0; 
+    data->files_num = 0;
     int arg_so_far = 1;
-    data->indexes_of_files=(int *)malloc(sizeof(int));//allocating a memory for an array for storing
-                                                      //indexes of right files
+    data->indexes_of_files = (int *)malloc(sizeof(int *));//allocating a memory for an array for storing
+                                                        //indexes of right files
     int k = 0; 
 
     for (; arg_so_far < argc; arg_so_far++) {
         if (argv[arg_so_far][0] == '-' && tmp == false) {
             flags_get(flags, argv[arg_so_far]);
-            data->argcf++;
         }    
         else {
             if (mx_check_file(argv[arg_so_far])) {
@@ -124,7 +123,9 @@ void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
                 tmp = true;
             }
             else {
-                mx_invalid_file(argv[arg_so_far]);
+                write(2, "uls: ", mx_strlen("uls: "));
+                perror(argv[arg_so_far]);
+                // mx_invalid_file(argv[arg_so_far]);
                 tmp = true;
             }
         }   

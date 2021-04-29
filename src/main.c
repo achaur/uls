@@ -14,6 +14,7 @@ int main(int argc, char **argv) {
     mx_print_tree(tree, flags);
 
     mx_free_dir(tree);
+    mx_clean_memory(data, flags);
 
     return 0;
 }
