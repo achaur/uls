@@ -1,7 +1,7 @@
 #include "uls.h"
 
 static void mx_first_symbol(t_file *fist, char *buf) {
-    if ((fist->filestat.st_mode & S_IFDIR) == S_IFDIR)//check if it is a directory
+    if (S_ISDIR(fist->filestat.st_mode)) //check if it is a directory
         buf[0] = 'd';
     if ((fist->filestat.st_mode & S_IFIFO) == S_IFIFO)//check if it is a fifo/chanel
         buf[0] = 'p';
@@ -13,7 +13,7 @@ static void mx_first_symbol(t_file *fist, char *buf) {
     }
     if ((fist->filestat.st_mode & S_IFREG) == S_IFREG)//check if it is a usual file
         buf[0] = '-';
-    if ((fist->filestat.st_mode & S_IFLNK) == S_IFLNK) {//check if it is a symbolic link
+    if (S_ISLNK(fist->filestat.st_mode)) { //check if it is a symbolic link
         buf[0] = 'l';
     }
     if ((fist->filestat.st_mode & MX_IFSOCK) == MX_IFSOCK)//check if it is a socket
@@ -52,7 +52,6 @@ static void mx_other_symbols2(t_file *fist, char *buf) {
 
 char *mx_get_permissions(t_file *fist) {
     char *buf = mx_strnew(11);
-    stat(fist->name, &fist->filestat);
     
     for (int i = 0; i < 10; i++)
         buf[i] = '-';

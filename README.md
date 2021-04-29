@@ -3,11 +3,14 @@ Recode the system's utility ls.
 
 Ideas for speedup: use less mallocs
 
+FIX ERRORS: WHEN THERE IS NO VALIND ARGUMENTS AT ALL, EXIT
+NOW: IF THERE IS NO VALID ARGUMENTS - IN PRINTS DEFAULT DIRECTORY
+
 To-do for minimal version:
  - free memory
  - proper error handling
  - if output is piped, use -1 as default instead of -C +
- - read links properly
+ - read links properly +
  - calculate size for -l flag +
  - print files itself if they are arguments +
 

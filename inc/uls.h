@@ -1,7 +1,7 @@
 #ifndef _ULS_H
 #define _ULS_H
 
-#define _XOPEN_SOURCE
+#define _DEFAULT_SOURCE
 
 #include "libmx.h"
 
@@ -104,6 +104,7 @@ char *mx_get_fullpath(const char *name, const char *path);
 bool mx_is_hidden(const char *dir);
 int mx_get_term_width(void);
 void mx_print_tot_size(t_file *dir, t_flags *flags);
+char *mx_get_link(char *fullpath, char *name);
 
     /*--- Errors ---*/
 void mx_invalid_flag(char c);

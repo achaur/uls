@@ -44,8 +44,8 @@ int mx_get_term_width(void) {
 void mx_print_tot_size(t_file *dir, t_flags *flags) {
     int sum_so_far = 0;
     while (dir != NULL) {
-        sum_so_far += dir->filestat.st_size / 4096;
-        if (dir->filestat.st_size % 4096 > 0)
+        sum_so_far += dir->filestat.st_size / dir->filestat.st_blksize;
+        if (dir->filestat.st_size % dir->filestat.st_blksize > 0)
             sum_so_far++;
         dir = dir->next;
     }
@@ -53,5 +53,19 @@ void mx_print_tot_size(t_file *dir, t_flags *flags) {
     mx_printstr("total ");
     mx_printint(sum_so_far);
     mx_printchar('\n');
-    
+}
+
+//function which returns link in form "src" -> "dst"
+char *mx_get_link(char *fullpath, char *name) {
+        //create buffer to read link (max filename(256) + '\0')
+    char *buff = mx_strnew(257);
+    readlink(fullpath, buff, 257);
+        //append -> 
+    char *temp = mx_strjoin(name, " -> ");
+        //append destination
+    char *res = mx_strjoin(temp, buff);
+    //free all used memory
+    mx_strdel(&buff);
+    mx_strdel(&temp);
+    return res;
 }

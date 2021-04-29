@@ -11,10 +11,9 @@ int main(int argc, char **argv) {
     t_file *tree = mx_get_tree(data->files, flags);
 
         /*--- Try to print --- */
-    // mx_print_files(tree, flags);
     mx_print_tree(tree, flags);
 
     mx_free_dir(tree);
-    
+
     return 0;
 }

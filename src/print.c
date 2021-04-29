@@ -131,7 +131,7 @@ void mx_print_dir(t_file *dir, t_flags *flags) {
     else
         fill_table(table, dir->level, flags);
         //print table
-    if (flags ->l || flags->n)
+    if ((flags ->l || flags->n) && (dir->level != NULL))
         mx_print_tot_size(dir->level, flags);
     print_table(table);
 
