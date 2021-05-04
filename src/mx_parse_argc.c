@@ -107,6 +107,7 @@ void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
     flags_init(flags);
     bool tmp = false;
     data->files_num = 0;
+    data->argcf = 0;
     int arg_so_far = 1;
     data->indexes_of_files = (int *)malloc(sizeof(int *));//allocating a memory for an array for storing
                                                         //indexes of right files
@@ -115,6 +116,7 @@ void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
     for (; arg_so_far < argc; arg_so_far++) {
         if (argv[arg_so_far][0] == '-' && tmp == false) {
             flags_get(flags, argv[arg_so_far]);
+            data->argcf++;
         }    
         else {
             if (mx_check_file(argv[arg_so_far])) {

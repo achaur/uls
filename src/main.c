@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
         //parse arguments
     mx_parse_argc(argc, argv, data, flags);
         //read file tree
-    t_file *tree = mx_get_tree(data->files, flags);
+    t_file *tree = mx_get_tree(data->files, flags, argc, data->files_num, data->argcf);
 
         /*--- Try to print --- */
     mx_print_tree(tree, flags);
