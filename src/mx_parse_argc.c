@@ -24,9 +24,10 @@ static void flags_init(t_flags *flags) {
     flags->one = false;
     flags->F = false;
     flags->C = false;
+    flags->color = false;
 }
 
-static void flags_get(t_flags *flags, char *str) {
+static void flags_get(t_flags *flags, char *str) { 
     for (int i = 1; str[i] != '\0'; i++) {
         switch (str[i]) {
             case 'R':
@@ -88,7 +89,6 @@ static void flags_get(t_flags *flags, char *str) {
                 break;
         }
     }
-    
 }
 
 static void get_files_names(int argc, char **argv, t_uls *data) {
@@ -115,7 +115,10 @@ void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
 
     for (; arg_so_far < argc; arg_so_far++) {
         if (argv[arg_so_far][0] == '-' && tmp == false) {
-            flags_get(flags, argv[arg_so_far]);
+            if (mx_strcmp(argv[arg_so_far], "--color") == 0)
+                flags->color = true;
+            else
+                flags_get(flags, argv[arg_so_far]);
             data->argcf++;
         }    
         else {

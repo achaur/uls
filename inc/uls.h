@@ -97,6 +97,7 @@ typedef struct s_flags {
     bool one;
     bool F;
     bool C;
+    bool color;
 }              t_flags;
 
 //structure which holds file tree
@@ -142,7 +143,7 @@ void mx_printerr(const char *s);
 
 void mx_print_dir(t_file *dir, t_flags *flags);
 void mx_print_tree(t_file *tree, t_flags *flags);
-
+void mx_colorful_output(t_file *file, t_flags *flags);
 /*--- Print preparation ---*/
 void mx_get_rows_cols(int *rows, int *cols, t_file *dir, t_flags *flags);
 

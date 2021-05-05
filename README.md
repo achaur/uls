@@ -7,8 +7,8 @@ FIX ERRORS: WHEN THERE IS NO VALIND ARGUMENTS AT ALL, EXIT
 NOW: IF THERE IS NO VALID ARGUMENTS - IN PRINTS DEFAULT DIRECTORY
 
 To-do for minimal version:
- - free memory
- - proper error handling
+ - free memory//done
+ - proper error handling//done
  - if output is piped, use -1 as default instead of -C +
  - read links properly +
  - calculate size for -l flag +
