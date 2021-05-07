@@ -86,8 +86,8 @@ static t_file *scan_dir(char *path, t_flags *flags) {
     }
 
     closedir(dir);
-    /*--- ADD SORTING FUNCTION HERE ---
-    *--------------------------------------*/
+
+   filelist = mx_sort_dir(filelist, flags);
 
     return filelist;
 }
@@ -102,6 +102,8 @@ t_file *mx_get_tree(char **files, t_flags *flags) {
     } else
         for (int file = 0; files[file] != NULL; file++)
             file_push_back(&filelist, files[file], NULL, 1, flags);
+
+    filelist = mx_sort_dir(filelist, flags);
 
     return filelist;
 }

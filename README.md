@@ -7,7 +7,7 @@ FIX ERRORS: WHEN THERE IS NO VALIND ARGUMENTS AT ALL, EXIT
 NOW: IF THERE IS NO VALID ARGUMENTS - IN PRINTS DEFAULT DIRECTORY
 
 To-do for minimal version:
- - free memory
+ - free memory +
  - proper error handling
  - if output is piped, use -1 as default instead of -C +
  - read links properly +
@@ -16,7 +16,7 @@ To-do for minimal version:
 
  To-do for creative version:
  - recursive output
- - sort by name
+ - sort by name +
  - recursive sorting
  - additional sorting flags
  - add -d flag (list directory itself)

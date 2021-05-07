@@ -134,4 +134,7 @@ void mx_free_dir(t_file *dir);
 void mx_free_table(t_table *table);
 void mx_clean_memory(t_uls *data, t_flags *flags);
 
+/*--- Sorting ---*/
+t_file *mx_sort_dir(t_file *dir, t_flags *flags);
+
 #endif

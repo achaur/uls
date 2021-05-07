@@ -119,4 +119,5 @@
     char *mx_strchr(const char *s, int c);
     int mx_atoi(const char *str);
     int mx_strncmp(const char *s1, const char *s2, int n);
+    int mx_strcicmp(const char *s1, const char *s2);
 #endif

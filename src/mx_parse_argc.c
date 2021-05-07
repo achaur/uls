@@ -45,7 +45,7 @@ static void flags_get(t_flags *flags, char *str) {
                 flags->c = true;
                 break;
             case 'U':
-                flags->u = true;
+                flags->U = true;
                 break;
             case 'l':
                 flags->l = true;
