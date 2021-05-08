@@ -57,10 +57,11 @@ static void print_table(t_table *table) {
     for (int row = 0; row < table->rows; row++) {
         for (int col = 0; col < table->cols; col++) {
             if (table->table[row][col] != NULL) {
-                mx_printstr(table->table[row][col]);
                 if (col + 1 < table->cols)
                     if (table->table[row][col+1] != NULL)
                         print_tab(table->max_col_size[col], table->table[row][col]);
+                    mx_printstr(table->table[row][col]);
+                
             }
         file_so_far++;
         }

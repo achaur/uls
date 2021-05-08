@@ -143,7 +143,7 @@ void mx_printerr(const char *s);
 
 void mx_print_dir(t_file *dir, t_flags *flags);
 void mx_print_tree(t_file *tree, t_flags *flags);
-void mx_colorful_output(t_file *file, t_flags *flags);
+char *mx_colorful_output(t_file *file, t_flags *flags);
 /*--- Print preparation ---*/
 void mx_get_rows_cols(int *rows, int *cols, t_file *dir, t_flags *flags);
 
@@ -161,5 +161,7 @@ char *mx_get_name(t_file *file, t_flags *flags);
 void mx_free_dir(t_file *dir);
 void mx_free_table(t_table *table);
 void mx_clean_memory(t_uls *data, t_flags *flags);
+
+char *color_test(char *s);
 
 #endif

@@ -22,7 +22,7 @@ static void print_reg_file(t_file *file) {
         mx_printstr(RESET);
 }
 
-void mx_colorful_output(t_file *file, t_flags *flags) {
+char *mx_colorful_output(t_file *file, t_flags *flags) {
     if (flags->color) {
         if ((file->filestat.st_mode & MX_IFIFO) == MX_IFIFO)
             mx_printstr(YEL);
@@ -38,7 +38,8 @@ void mx_colorful_output(t_file *file, t_flags *flags) {
             mx_printstr(MAG);
         else if ((file->filestat.st_mode & MX_IFSOCK) == MX_IFSOCK)
             mx_printstr(GRN);
-        mx_printstr(file->name);
-        mx_printstr(RESET);
+        // mx_printstr(file->name);
+        // mx_printstr(RESET);
     }
+    return file->name;
 }
