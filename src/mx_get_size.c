@@ -1,12 +1,12 @@
 #include "uls.h"
 
 static int mx_round_number(double size_of_file) {//function to round file's size
-    bool msb = 0;
-    int integer_num = (size_of_file * 10);
+    int integer_num = size_of_file * 1024;
 
-    msb = integer_num % 10 >= 5;
-    integer_num /= 10;
-    integer_num += msb;
+    if (integer_num % 1024 >= 5)
+        integer_num = integer_num/1024 + 1;
+    else 
+        integer_num = integer_num/1024 + 0;
     return integer_num;
 }
 
@@ -27,7 +27,7 @@ char *mx_get_size(t_file *fist, t_flags *flags) {
         }
         else {
             //counting file's size
-            while (size_of_file > 1024) {
+            while (size_of_file >= 1024) {
                 size_of_file /= 1024;
                 count++;
             }

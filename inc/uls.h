@@ -1,7 +1,8 @@
 #ifndef _ULS_H
 #define _ULS_H
 
-#define _DEFAULT_SOURCE
+// #define _XOPEN_SOURCE
+// #define _DEFAULT_SOURCE
 
 #include "libmx.h"
 
@@ -26,7 +27,32 @@
 #include <time.h>
 #include <ctype.h>
 
+#include <stdlib.h>
+
+#define MX_IFMT   0170000  /* type of file mask */
+#define MX_IFIFO  0010000  /* named pipe (fifo) */
+#define MX_IFCHR  0020000  /* character special */
+#define MX_IFDIR  0040000  /* directory */
+#define MX_IFBLK  0060000  /* block special */
+#define MX_IFREG  0100000  /* regular */
+#define MX_IFLNK  0120000  /* symbolic link */
 #define MX_IFSOCK 0140000  /* socket */
+#define MX_IFWHT  0160000  /* whiteout */
+#define MX_ISUID  0004000  /* set user id on execution */
+#define MX_ISGID  0002000  /* set group id on execution */
+#define MX_ISVTX  0001000  /* save swapped text even after use */
+#define MX_IRWXU  0000700  /* RWX mask for owner */
+#define MX_IRUSR  0000400        /* R ead permission, owner */
+#define MX_IWUSR  0000200        /* W rite permission, owner */
+#define MX_IXUSR  0000100        /* X execute/search permission, owner */
+#define MX_IRWXG  0000070  /* RWX mask for group */
+#define MX_IRGRP  0000040        /* R ead permission, group */
+#define MX_IWGRP  0000020        /* W rite permission, group */
+#define MX_IXGRP  0000010        /* X execute/search permission, group */
+#define MX_IRWXO  0000007  /* RWX mask for other */
+#define MX_IROTH  0000004        /* R ead permission, other */
+#define MX_IWOTH  0000002        /* W rite permission, other */
+#define MX_IXOTH  0000001        /* X execute/search permission, other */
 
 #define RED       "\x1B[31m"
 #define GRN       "\x1B[32m"
@@ -70,6 +96,7 @@ typedef struct s_flags {
     bool one;
     bool F;
     bool C;
+    bool color;
 }              t_flags;
 
 //structure which holds file tree
@@ -95,7 +122,7 @@ void mx_one_arg(int argc, char **argv);
 void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags);
 
     /*--- Parsing file/dir tree---*/
-t_file *mx_get_tree(char **files, t_flags *flags);
+t_file *mx_get_tree(char **files, t_flags *flags, int argc, int files_num, int argcf);
 
     /*--- Utils ---*/
 bool mx_is_root(const char *dir);
@@ -115,7 +142,7 @@ void mx_printerr(const char *s);
 
 void mx_print_dir(t_file *dir, t_flags *flags);
 void mx_print_tree(t_file *tree, t_flags *flags);
-
+char *mx_colorful_output(t_file *file, t_flags *flags);
 /*--- Print preparation ---*/
 void mx_get_rows_cols(int *rows, int *cols, t_file *dir, t_flags *flags);
 
@@ -136,5 +163,6 @@ void mx_clean_memory(t_uls *data, t_flags *flags);
 
 /*--- Sorting ---*/
 t_file *mx_sort_dir(t_file *dir, t_flags *flags);
+char *color_test(char *s);
 
 #endif

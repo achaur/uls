@@ -94,10 +94,12 @@ static t_file *scan_dir(char *path, t_flags *flags) {
 
 //push back NULL shows that this is very first level
 //of files data tree
-t_file *mx_get_tree(char **files, t_flags *flags) {
+t_file *mx_get_tree(char **files, t_flags *flags, int argc, int files_num, int argcf) {
     t_file *filelist = NULL;
         //if no arguments, use default one
-    if (*files == NULL) {
+    if (argc != 1 && files_num == 0 && argcf == 0) 
+        exit(1);
+    else if (*files == NULL) {
         file_push_back(&filelist, ".", NULL, 1, flags);
     } else
         for (int file = 0; files[file] != NULL; file++)
