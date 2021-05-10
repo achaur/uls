@@ -91,7 +91,7 @@ static void flags_get(t_flags *flags, char *str) {
     }
 }
 
-static void get_files_names(int argc, char **argv, t_uls *data) {
+static void get_files_names(char **argv, t_uls *data) {
     data->files = (char **)malloc(sizeof(char *) * (data->files_num ) + 10);
     int k = 0;
     int count = 0;
@@ -135,5 +135,5 @@ void mx_parse_argc(int argc, char **argv, t_uls *data, t_flags *flags) {
             }
         }   
     }
-    get_files_names(argc, argv, data);
+    get_files_names(argv, data);
 }

@@ -50,8 +50,11 @@ void mx_print_tot_size(t_file *dir, t_flags *flags) {
         dir = dir->next;
     }
     sum_so_far *= 4;
+
     mx_printstr("total ");
     mx_printint(sum_so_far);
+    if (flags->h)
+        mx_printchar('K');
     mx_printchar('\n');
 }
 

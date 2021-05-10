@@ -190,21 +190,35 @@ static bool print_files(t_file *tree, t_flags *flags) {
     return res;
 }
 
+//prints file tree recursively
+void print_tree_rec(t_file *tree, t_flags *flags) {
+    while (tree != NULL) {
+        if(S_ISDIR(tree->filestat.st_mode)) {
+            if (tree->next != NULL) {
+                mx_printchar('\n');
+                mx_printstr(tree->path);
+                mx_printchar('/');
+                mx_printstr(tree->name);
+                mx_printstr(":\n");
+            }
+            mx_print_dir(tree, flags);
+            if(flags->R && S_ISDIR(tree->filestat.st_mode))
+                    print_tree_rec(tree->level, flags);
+            }
+        tree = tree->next;
+    }
+}
+
 void mx_print_tree(t_file *tree, t_flags *flags) {
         //try to print files first
     print_files(tree, flags);
         //if only one file/dir to print, do not print it's name
-    if(tree->next == NULL)
-        mx_print_dir(tree, flags);
-    else {
-        while (tree != NULL) {
-            if(S_ISDIR(tree->filestat.st_mode)) {
-                mx_printchar('\n');
-                mx_printstr(tree->name);
-                mx_printstr(":\n");
-                mx_print_dir(tree, flags);
-            }
-        tree = tree->next;
-        }
+    if(tree->next != NULL) {
+        mx_printchar('\n');
+        mx_printstr(tree->path);
+        mx_printchar('/');
+        mx_printstr(tree->name);
+        mx_printstr(":\n");
     }
+       print_tree_rec(tree, flags);
 }
