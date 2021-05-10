@@ -37,26 +37,36 @@ char *mx_get_name(t_file *file, t_flags *flags) {
     char *name = NULL;
         //if flag p - append '/' to directories
     if(flags->p) {
-            if((file->filestat.st_mode & MX_IFDIR) == MX_IFDIR)
+            if(S_ISDIR(file->filestat.st_mode))
                 name = mx_strjoin(file->name, "/");
             else
                 name = mx_strdup(file->name);
             //if flag -F append classificator to everything
     } else if (flags->F) {
-        if ((file->filestat.st_mode & MX_IFDIR) == MX_IFDIR)
-            name = mx_strjoin(file->name, "/");
-        else if ((file->filestat.st_mode & MX_IXUSR) == MX_IXUSR)
-            name = mx_strjoin(file->name, "*");
-        else if ((file->filestat.st_mode & MX_IFIFO) == MX_IFIFO)
-            name = mx_strjoin(file->name, "|");
-        else if ((file->filestat.st_mode & MX_IFLNK) == MX_IFLNK)
-            name = mx_strjoin(file->name, "@");
-        else if ((file->filestat.st_mode & MX_IFSOCK) == MX_IFSOCK)
-            name = mx_strjoin(file->name, "=");
-        else if ((file->filestat.st_mode & MX_IFREG) == MX_IFREG) 
-            name = mx_strdup(file->name);
-        else 
-            name = mx_strdup(file->name);
+        switch (file->filestat.st_mode & S_IFMT) {
+            case S_IFDIR:                         //check if the file is a directory
+                name = mx_strjoin(file->name, "/");
+                break;
+            case S_IXUSR:                         //check if the file is an executable file
+                name = mx_strjoin(file->name, "*");
+                break;
+            case S_IFIFO:                         //check if the file is a pipe
+                name = mx_strjoin(file->name, "|");
+                break;
+            case S_IFLNK:                         //check if the file is a symbolic link
+                name = mx_strjoin(file->name, "@");
+                break;
+            case S_IFSOCK:                        //check if the file is a socket
+                name = mx_strjoin(file->name, "=");
+                break;
+            // case MX_                               //check if the file is a door????
+            //     return mx_strjoin(fist->name, ">");
+            default:
+                name = mx_strdup(file->name);
+        }
+            //if no that flags - just return name
+    } else {
+        name = mx_strdup(file->name);
     }
     return name;
 }
