@@ -27,7 +27,7 @@ static void flags_init(t_flags *flags) {
     flags->color = false;
 }
 
-static void flags_get(t_flags *flags, char *str) { 
+static void flags_get(t_flags *flags, char *str) {
     for (int i = 1; str[i] != '\0'; i++) {
         switch (str[i]) {
             case 'R':

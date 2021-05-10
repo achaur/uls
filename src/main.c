@@ -13,8 +13,5 @@ int main(int argc, char **argv) {
     mx_free_dir(tree);
     mx_clean_memory(data, flags);
 
-    printf("%s", color_test("file_name"));
-    // mx_printstr(RESET);
-
     return errno;
 }
